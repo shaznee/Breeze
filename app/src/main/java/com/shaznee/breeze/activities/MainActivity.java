@@ -36,7 +36,6 @@ public class MainActivity extends AppCompatActivity {
         double longitude = -122.423;
         
         if (isOnline()) {
-
             OkHttpClient client = new OkHttpClient.Builder()
                     .addInterceptor(new HttpLoggingInterceptor().setLevel(HttpLoggingInterceptor.Level.BODY))
                     .build();
@@ -63,7 +62,7 @@ public class MainActivity extends AppCompatActivity {
 
                 @Override
                 public void onFailure(Call<Forecast> call, Throwable t) {
-                    Log.e(TAG, "On Failure");
+                    Log.e(TAG, "On Failure", t);
                     showAlertDialog(getString(R.string.error_title), getString(R.string.error_message));
                 }
             });
