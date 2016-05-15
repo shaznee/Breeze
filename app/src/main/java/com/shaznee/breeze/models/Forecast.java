@@ -1,8 +1,13 @@
 package com.shaznee.breeze.models;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
+
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.TimeZone;
 
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @JsonIgnoreProperties(ignoreUnknown=true)
@@ -48,7 +53,14 @@ public class Forecast {
     public void setTimezone(String timezone) {
         this.timezone = timezone;
     }
-//
+
+    @JsonIgnore
+    public String getFormattedTime () {
+        SimpleDateFormat dateFormat = new SimpleDateFormat("hh:mm a");
+        dateFormat.setTimeZone(TimeZone.getTimeZone(getTimezone()));
+        return dateFormat.format(new Date(currently.getTime() * 1000));
+    }
+
 //    public long getOffset() {
 //        return offset;
 //    }

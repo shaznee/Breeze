@@ -13,6 +13,8 @@ import com.shaznee.breeze.R;
 import com.shaznee.breeze.api.WeatherAPI;
 import com.shaznee.breeze.models.Forecast;
 
+import okhttp3.OkHttpClient;
+import okhttp3.logging.HttpLoggingInterceptor;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -34,8 +36,14 @@ public class MainActivity extends AppCompatActivity {
         double longitude = -122.423;
         
         if (isOnline()) {
+
+            OkHttpClient client = new OkHttpClient.Builder()
+                    .addInterceptor(new HttpLoggingInterceptor().setLevel(HttpLoggingInterceptor.Level.BODY))
+                    .build();
+
             Retrofit retrofit = new Retrofit.Builder()
                     .baseUrl(BASE_URL)
+                    .client(client)
                     .addConverterFactory(JacksonConverterFactory.create())
                     .build();
 
@@ -46,14 +54,17 @@ public class MainActivity extends AppCompatActivity {
                     if (response.isSuccessful()) {
                         Forecast forecast = response.body();
                         Log.v(TAG, "Timezone:" + forecast.getTimezone());
+                        Log.v(TAG, "Current Time: " + forecast.getFormattedTime());
                     } else {
+                        Log.e(TAG, "On response failure");
                         showAlertDialog(getString(R.string.error_title), getString(R.string.error_message));
                     }
                 }
 
                 @Override
                 public void onFailure(Call<Forecast> call, Throwable t) {
-
+                    Log.e(TAG, "On Failure");
+                    showAlertDialog(getString(R.string.error_title), getString(R.string.error_message));
                 }
             });
         } else {
