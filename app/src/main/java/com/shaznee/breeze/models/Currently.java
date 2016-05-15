@@ -122,16 +122,16 @@ public class Currently {
 //        this.precipIntensity = precipIntensity;
 //    }
 
-    public long getPrecipProbability() {
-        return precipProbability;
+    public int getPrecipProbability() {
+        return (int) Math.round(precipProbability * 100);
     }
 
     public void setPrecipProbability(long precipProbability) {
         this.precipProbability = precipProbability;
     }
 
-    public double getTemperature() {
-        return temperature;
+    public int getTemperature() {
+        return (int) Math.round(temperature);
     }
 
     public void setTemperature(double temperature) {
