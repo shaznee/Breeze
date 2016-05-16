@@ -14,7 +14,7 @@ public class Minutely {
     @JsonProperty("icon")
     private String icon;
     @JsonProperty("data")
-    private List<Datum> data;
+    private List<Data> data;
 
     @JsonProperty("summary")
     public String getSummary() {
@@ -37,12 +37,12 @@ public class Minutely {
     }
 
     @JsonProperty("data")
-    public List<Datum> getData() {
+    public List<Data> getData() {
         return data;
     }
 
     @JsonProperty("data")
-    public void setData(ArrayList<Datum> data) {
+    public void setData(ArrayList<Data> data) {
         this.data = data;
     }
 

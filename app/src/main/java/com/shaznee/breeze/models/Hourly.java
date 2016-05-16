@@ -1,5 +1,6 @@
 package com.shaznee.breeze.models;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
@@ -7,6 +8,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @JsonInclude(JsonInclude.Include.NON_NULL)
+@JsonIgnoreProperties(ignoreUnknown=true)
 public class Hourly {
 
     @JsonProperty("summary")
@@ -14,7 +16,7 @@ public class Hourly {
     @JsonProperty("icon")
     private String icon;
     @JsonProperty("data")
-    private List<Datum> data;
+    private List<Data> data;
 
     public String getSummary() {
         return summary;
@@ -32,11 +34,11 @@ public class Hourly {
         this.icon = icon;
     }
 
-    public List<Datum> getData() {
+    public List<Data> getData() {
         return data;
     }
 
-    public void setData(ArrayList<Datum> data) {
+    public void setData(ArrayList<Data> data) {
         this.data = data;
     }
 

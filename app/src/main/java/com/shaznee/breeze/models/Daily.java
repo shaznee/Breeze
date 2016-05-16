@@ -14,7 +14,7 @@ public class Daily {
     @JsonProperty("icon")
     private String icon;
     @JsonProperty("data")
-    private List<Datum> data;
+    private List<Data> data;
 
     public String getSummary() {
         return summary;
@@ -32,11 +32,11 @@ public class Daily {
         this.icon = icon;
     }
 
-    public List<Datum> getData() {
+    public List<Data> getData() {
         return data;
     }
 
-    public void setData(ArrayList<Datum> data) {
+    public void setData(ArrayList<Data> data) {
         this.data = data;
     }
 
