@@ -7,4 +7,5 @@
     <string name="dialog_ok">OK</string>
     <string name="title_activity_daily">DailyActivity</string>
     <string name="empty_list">No weather data to show ...</string>
+    <string name="title_activity_hourly_forecast">HourlyForecast</string>
 </resources>

@@ -58,7 +58,11 @@ public class DayListAdapter extends BaseAdapter {
 
         viewHolder.iconImageView.setImageResource(data.getIconId());
         viewHolder.temperatureLabel.setText(data.getTemperatureMax() + "");
-        viewHolder.dayLabel.setText(forecast.getDayOfTheWeek(data.getTime()));
+        if (position == 0) {
+            viewHolder.dayLabel.setText("Today");
+        } else {
+            viewHolder.dayLabel.setText(forecast.getDayOfTheWeek(data.getTime()));
+        }
 
         return convertView;
     }

@@ -3,7 +3,6 @@ package com.shaznee.breeze.activities;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.Intent;
-import android.graphics.drawable.Drawable;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Bundle;
@@ -19,8 +18,6 @@ import android.widget.Toast;
 import com.shaznee.breeze.R;
 import com.shaznee.breeze.api.WeatherAPI;
 import com.shaznee.breeze.models.Forecast;
-
-import org.w3c.dom.Text;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -153,7 +150,7 @@ public class MainActivity extends AppCompatActivity {
 
     @OnClick(R.id.dailyButton)
     protected void startDailyActivity(View view) {
-        Intent intent = new Intent(this, DailyActivity.class);
+        Intent intent = new Intent(this, DailyForecast.class);
         intent.putExtra(FORECAST, forecast);
         startActivity(intent);
     }
