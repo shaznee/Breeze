@@ -1,12 +1,18 @@
 package com.shaznee.breeze.models;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
+import java.text.SimpleDateFormat;
+
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @JsonIgnoreProperties(ignoreUnknown=true)
-public class Data {
+public class Data implements Parcelable {
 
     @JsonProperty("time")
     private long time;
@@ -14,58 +20,12 @@ public class Data {
     private String summary;
     @JsonProperty("icon")
     private String icon;
-    @JsonProperty("sunriseTime")
-    private long sunriseTime;
-    @JsonProperty("sunsetTime")
-    private long sunsetTime;
-    @JsonProperty("moonPhase")
-    private double moonPhase;
-    @JsonProperty("precipIntensity")
-    private long precipIntensity;
-    @JsonProperty("precipIntensityMax")
-    private long precipIntensityMax;
-    @JsonProperty("precipProbability")
-    private long precipProbability;
     @JsonProperty("temperature")
     private double temperature;
-    @JsonProperty("temperatureMin")
-    private double temperatureMin;
-    @JsonProperty("temperatureMinTime")
-    private long temperatureMinTime;
     @JsonProperty("temperatureMax")
     private double temperatureMax;
-    @JsonProperty("temperatureMaxTime")
-    private long temperatureMaxTime;
-    @JsonProperty("apparentTemperature")
-    private double apparentTemperature;
-    @JsonProperty("apparentTemperatureMin")
-    private double apparentTemperatureMin;
-    @JsonProperty("apparentTemperatureMinTime")
-    private long apparentTemperatureMinTime;
-    @JsonProperty("apparentTemperatureMax")
-    private double apparentTemperatureMax;
-    @JsonProperty("apparentTemperatureMaxTime")
-    private long apparentTemperatureMaxTime;
-    @JsonProperty("dewPoint")
-    private double dewPoint;
-    @JsonProperty("humidity")
-    private double humidity;
-    @JsonProperty("windSpeed")
-    private double windSpeed;
-    @JsonProperty("windBearing")
-    private long windBearing;
-    @JsonProperty("visibility")
-    private double visibility;
-    @JsonProperty("cloudCover")
-    private double cloudCover;
-    @JsonProperty("pressure")
-    private double pressure;
-    @JsonProperty("ozone")
-    private double ozone;
-    @JsonProperty("precipIntensityMaxTime")
-    private long precipIntensityMaxTime;
-    @JsonProperty("precipType")
-    private String precipType;
+
+    public Data() {}
 
     public long getTime() {
         return time;
@@ -75,8 +35,8 @@ public class Data {
         this.time = time;
     }
 
-    public double getTemperature() {
-        return temperature;
+    public int getTemperature() {
+        return (int) Math.round(temperature);
     }
 
     public void setTemperature(double temperature) {
@@ -99,196 +59,52 @@ public class Data {
         this.icon = icon;
     }
 
-    public long getSunriseTime() {
-        return sunriseTime;
-    }
-
-    public void setSunriseTime(long sunriseTime) {
-        this.sunriseTime = sunriseTime;
-    }
-
-    public long getSunsetTime() {
-        return sunsetTime;
-    }
-
-    public void setSunsetTime(long sunsetTime) {
-        this.sunsetTime = sunsetTime;
-    }
-
-    public double getMoonPhase() {
-        return moonPhase;
-    }
-
-    public void setMoonPhase(double moonPhase) {
-        this.moonPhase = moonPhase;
-    }
-
-    public long getPrecipIntensity() {
-        return precipIntensity;
-    }
-
-    public void setPrecipIntensity(long precipIntensity) {
-        this.precipIntensity = precipIntensity;
-    }
-
-    public long getPrecipIntensityMax() {
-        return precipIntensityMax;
-    }
-
-    public void setPrecipIntensityMax(long precipIntensityMax) {
-        this.precipIntensityMax = precipIntensityMax;
-    }
-
-    public long getPrecipProbability() {
-        return precipProbability;
-    }
-
-    public void setPrecipProbability(long precipProbability) {
-        this.precipProbability = precipProbability;
-    }
-
-    public double getTemperatureMin() {
-        return temperatureMin;
-    }
-
-    public void setTemperatureMin(double temperatureMin) {
-        this.temperatureMin = temperatureMin;
-    }
-
-    public long getTemperatureMinTime() {
-        return temperatureMinTime;
-    }
-
-    public void setTemperatureMinTime(long temperatureMinTime) {
-        this.temperatureMinTime = temperatureMinTime;
-    }
-
-    public double getTemperatureMax() {
-        return temperatureMax;
+    public int getTemperatureMax() {
+        return (int) Math.round(temperatureMax);
     }
 
     public void setTemperatureMax(double temperatureMax) {
         this.temperatureMax = temperatureMax;
     }
 
-    public long getTemperatureMaxTime() {
-        return temperatureMaxTime;
+    @JsonIgnore
+    public int getIconId () {
+        return Forecast.getIconId(icon);
     }
 
-    public void setTemperatureMaxTime(long temperatureMaxTime) {
-        this.temperatureMaxTime = temperatureMaxTime;
+    //*********Parcelable Implemetnation **********//
+
+    private Data(Parcel in) {
+        time = in.readLong();
+        summary = in.readString();
+        icon = in.readString();
+        temperature = in.readDouble();
+        temperatureMax = in.readDouble();
     }
 
-    public double getApparentTemperatureMin() {
-        return apparentTemperatureMin;
+    public static final Creator<Data> CREATOR = new Creator<Data>() {
+        @Override
+        public Data createFromParcel(Parcel in) {
+            return new Data(in);
+        }
+
+        @Override
+        public Data[] newArray(int size) {
+            return new Data[size];
+        }
+    };
+
+    @Override
+    public int describeContents() {
+        return 0;
     }
 
-    public void setApparentTemperatureMin(double apparentTemperatureMin) {
-        this.apparentTemperatureMin = apparentTemperatureMin;
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeLong(time);
+        dest.writeString(summary);
+        dest.writeString(icon);
+        dest.writeDouble(temperature);
+        dest.writeDouble(temperatureMax);
     }
-
-    public long getApparentTemperatureMinTime() {
-        return apparentTemperatureMinTime;
-    }
-
-    public void setApparentTemperatureMinTime(long apparentTemperatureMinTime) {
-        this.apparentTemperatureMinTime = apparentTemperatureMinTime;
-    }
-
-    public double getApparentTemperatureMax() {
-        return apparentTemperatureMax;
-    }
-
-    public void setApparentTemperatureMax(double apparentTemperatureMax) {
-        this.apparentTemperatureMax = apparentTemperatureMax;
-    }
-
-    public long getApparentTemperatureMaxTime() {
-        return apparentTemperatureMaxTime;
-    }
-
-    public void setApparentTemperatureMaxTime(long apparentTemperatureMaxTime) {
-        this.apparentTemperatureMaxTime = apparentTemperatureMaxTime;
-    }
-
-    public double getDewPoint() {
-        return dewPoint;
-    }
-
-    public void setDewPoint(double dewPoint) {
-        this.dewPoint = dewPoint;
-    }
-
-    public double getHumidity() {
-        return humidity;
-    }
-
-    public void setHumidity(double humidity) {
-        this.humidity = humidity;
-    }
-
-    public double getWindSpeed() {
-        return windSpeed;
-    }
-
-    public void setWindSpeed(double windSpeed) {
-        this.windSpeed = windSpeed;
-    }
-
-    public long getWindBearing() {
-        return windBearing;
-    }
-
-    public void setWindBearing(long windBearing) {
-        this.windBearing = windBearing;
-    }
-
-    public double getVisibility() {
-        return visibility;
-    }
-
-    public void setVisibility(double visibility) {
-        this.visibility = visibility;
-    }
-
-    public double getCloudCover() {
-        return cloudCover;
-    }
-
-    public void setCloudCover(double cloudCover) {
-        this.cloudCover = cloudCover;
-    }
-
-    public double getPressure() {
-        return pressure;
-    }
-
-    public void setPressure(double pressure) {
-        this.pressure = pressure;
-    }
-
-    public double getOzone() {
-        return ozone;
-    }
-
-    public void setOzone(double ozone) {
-        this.ozone = ozone;
-    }
-
-    public long getPrecipIntensityMaxTime() {
-        return precipIntensityMaxTime;
-    }
-
-    public void setPrecipIntensityMaxTime(long precipIntensityMaxTime) {
-        this.precipIntensityMaxTime = precipIntensityMaxTime;
-    }
-
-    public String getPrecipType() {
-        return precipType;
-    }
-
-    public void setPrecipType(String precipType) {
-        this.precipType = precipType;
-    }
-
 }

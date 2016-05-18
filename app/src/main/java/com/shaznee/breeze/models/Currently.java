@@ -1,5 +1,8 @@
 package com.shaznee.breeze.models;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonInclude;
@@ -8,7 +11,7 @@ import com.shaznee.breeze.R;
 
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @JsonIgnoreProperties(ignoreUnknown=true)
-public class Currently {
+public class Currently implements Parcelable {
 
     @JsonProperty("time")
     private long time;
@@ -16,34 +19,14 @@ public class Currently {
     private String summary;
     @JsonProperty("icon")
     private String icon;
-//    @JsonProperty("nearestStormDistance")
-//    private long nearestStormDistance;
-//    @JsonProperty("nearestStormBearing")
-//    private long nearestStormBearing;
-//    @JsonProperty("precipIntensity")
-//    private long precipIntensity;
     @JsonProperty("precipProbability")
     private long precipProbability;
     @JsonProperty("temperature")
     private double temperature;
-//    @JsonProperty("apparentTemperature")
-//    private double apparentTemperature;
-//    @JsonProperty("dewPoint")
-//    private double dewPoint;
     @JsonProperty("humidity")
      private double humidity;
-//    @JsonProperty("windSpeed")
-//    private double windSpeed;
-//    @JsonProperty("windBearing")
-//    private long windBearing;
-//    @JsonProperty("visibility")
-//    private double visibility;
-//    @JsonProperty("cloudCover")
-//    private double cloudCover;
-//    @JsonProperty("pressure")
-//    private double pressure;
-//    @JsonProperty("ozone")
-//    private double ozone;
+
+    public Currently() {}
 
     public long getTime() {
         return time;
@@ -55,31 +38,7 @@ public class Currently {
 
     @JsonIgnore
     public int getIconId () {
-        //clear-day, clear-night, rain, snow, sleet, wind, fog, cloudy, partly-cloudy-day, or partly-cloudy-night
-        switch (icon) {
-            case "clear-day" :
-                return R.drawable.clear_day;
-            case "clear-night" :
-                return R.drawable.clear_night;
-            case "rain" :
-                return R.drawable.rain;
-            case "snow" :
-                return R.drawable.snow;
-            case "sleet" :
-                return R.drawable.sleet;
-            case "wind" :
-                return R.drawable.wind;
-            case "fog" :
-                return R.drawable.fog;
-            case "cloudy" :
-                return R.drawable.cloudy;
-            case "partly-cloudy-day" :
-                return R.drawable.clear_day;
-            case "partly-cloudy-night" :
-                return R.drawable.cloudy_night;
-            default:
-                return R.drawable.clear_day;
-        }
+        return Forecast.getIconId(icon);
     }
 
     public String getSummary() {
@@ -98,30 +57,6 @@ public class Currently {
         this.icon = icon;
     }
 
-//    public long getNearestStormDistance() {
-//        return nearestStormDistance;
-//    }
-//
-//    public void setNearestStormDistance(long nearestStormDistance) {
-//        this.nearestStormDistance = nearestStormDistance;
-//    }
-//
-//    public long getNearestStormBearing() {
-//        return nearestStormBearing;
-//    }
-//
-//    public void setNearestStormBearing(long nearestStormBearing) {
-//        this.nearestStormBearing = nearestStormBearing;
-//    }
-//
-//    public long getPrecipIntensity() {
-//        return precipIntensity;
-//    }
-//
-//    public void setPrecipIntensity(long precipIntensity) {
-//        this.precipIntensity = precipIntensity;
-//    }
-
     public int getPrecipProbability() {
         return (int) Math.round(precipProbability * 100);
     }
@@ -138,22 +73,6 @@ public class Currently {
         this.temperature = temperature;
     }
 
-//    public double getApparentTemperature() {
-//        return apparentTemperature;
-//    }
-//
-//    public void setApparentTemperature(double apparentTemperature) {
-//        this.apparentTemperature = apparentTemperature;
-//    }
-//
-//    public double getDewPoint() {
-//        return dewPoint;
-//    }
-//
-//    public void setDewPoint(double dewPoint) {
-//        this.dewPoint = dewPoint;
-//    }
-//
     public double getHumidity() {
         return humidity;
     }
@@ -161,53 +80,43 @@ public class Currently {
     public void setHumidity(double humidity) {
         this.humidity = humidity;
     }
-//
-//    public double getWindSpeed() {
-//        return windSpeed;
-//    }
-//
-//    public void setWindSpeed(double windSpeed) {
-//        this.windSpeed = windSpeed;
-//    }
-//
-//    public long getWindBearing() {
-//        return windBearing;
-//    }
-//
-//    public void setWindBearing(long windBearing) {
-//        this.windBearing = windBearing;
-//    }
-//
-//    public double getVisibility() {
-//        return visibility;
-//    }
-//
-//    public void setVisibility(double visibility) {
-//        this.visibility = visibility;
-//    }
-//
-//    public double getCloudCover() {
-//        return cloudCover;
-//    }
-//
-//    public void setCloudCover(double cloudCover) {
-//        this.cloudCover = cloudCover;
-//    }
-//
-//    public double getPressure() {
-//        return pressure;
-//    }
-//
-//    public void setPressure(double pressure) {
-//        this.pressure = pressure;
-//    }
-//
-//    public double getOzone() {
-//        return ozone;
-//    }
-//
-//    public void setOzone(double ozone) {
-//        this.ozone = ozone;
-//    }
+
+    //*********Parcelable Implemetnation **********//
+
+    private Currently(Parcel in) {
+        time = in.readLong();
+        summary = in.readString();
+        icon = in.readString();
+        precipProbability = in.readLong();
+        temperature = in.readDouble();
+        humidity = in.readDouble();
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeLong(time);
+        dest.writeString(summary);
+        dest.writeString(icon);
+        dest.writeLong(precipProbability);
+        dest.writeDouble(temperature);
+        dest.writeDouble(humidity);
+    }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    public static final Creator<Currently> CREATOR = new Creator<Currently>() {
+        @Override
+        public Currently createFromParcel(Parcel in) {
+            return new Currently(in);
+        }
+
+        @Override
+        public Currently[] newArray(int size) {
+            return new Currently[size];
+        }
+    };
 
 }

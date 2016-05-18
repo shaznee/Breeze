@@ -2,6 +2,7 @@ package com.shaznee.breeze.activities;
 
 import android.app.AlertDialog;
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.drawable.Drawable;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
@@ -35,8 +36,6 @@ import retrofit2.converter.jackson.JacksonConverterFactory;
 public class MainActivity extends AppCompatActivity {
 
     private static final String TAG = MainActivity.class.getSimpleName();
-    private static final String BASE_URL = "https://api.forecast.io";
-    private final String apiKey = "e738670a91beb00176965e46a062ce23";
 
     @BindView(R.id.timeLabel) TextView timeLabel;
     @BindView(R.id.temperatureLabel) TextView temperatureLabel;
@@ -46,6 +45,12 @@ public class MainActivity extends AppCompatActivity {
     @BindView(R.id.iconImageView) ImageView iconImageView;
     @BindView(R.id.refreshImageView) ImageView refreshImageView;
     @BindView(R.id.progressBar) ProgressBar progressBar;
+
+    public static final String FORECAST = "FORECAST";
+    private static final String BASE_URL = "https://api.forecast.io";
+    private final String apiKey = "e738670a91beb00176965e46a062ce23";
+
+    private Forecast forecast;
 
     double latitude = 37.8267;
     double longitude = -122.423;
@@ -57,9 +62,7 @@ public class MainActivity extends AppCompatActivity {
         ButterKnife.bind(this);
 
         progressBar.setVisibility(View.INVISIBLE);
-
         getForecast(latitude, longitude);
-        Log.v(TAG, "Main UI Code is running");
     }
 
     private void getForecast(double latitude, double longitude) {
@@ -86,15 +89,13 @@ public class MainActivity extends AppCompatActivity {
                         }
                     });
                     if (response.isSuccessful()) {
-                        final Forecast forecast = response.body();
+                        forecast = response.body();
                         runOnUiThread(new Runnable() {
                             @Override
                             public void run() {
-                                updateDisplay(forecast);
+                                updateDisplay();
                             }
                         });
-                        Log.v(TAG, "Timezone:" + forecast.getTimezone());
-                        Log.v(TAG, "Current Time: " + forecast.getFormattedTime());
                     } else {
                         Log.e(TAG, "On response failure");
                         showAlertDialog(getString(R.string.error_title), getString(R.string.error_message));
@@ -129,7 +130,7 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-    private void updateDisplay(Forecast forecast) {
+    private void updateDisplay() {
         temperatureLabel.setText(forecast.getCurrently().getTemperature() + "");
         timeLabel.setText("At " + forecast.getFormattedTime() + " it will be");
         humidityValue.setText(forecast.getCurrently().getHumidity() + "");
@@ -146,8 +147,15 @@ public class MainActivity extends AppCompatActivity {
     }
 
     @OnClick(R.id.refreshImageView)
-    protected void refresh() {
+    protected void refresh(View view) {
         getForecast(latitude, longitude);
+    }
+
+    @OnClick(R.id.dailyButton)
+    protected void startDailyActivity(View view) {
+        Intent intent = new Intent(this, DailyActivity.class);
+        intent.putExtra(FORECAST, forecast);
+        startActivity(intent);
     }
 
     private void showAlertDialog(String title, String message) {

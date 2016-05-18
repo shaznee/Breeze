@@ -5,4 +5,6 @@
     <string name="error_message">Something went wrong! Please try again</string>
     <string name="no_network_string">Network is Unavailable</string>
     <string name="dialog_ok">OK</string>
+    <string name="title_activity_daily">DailyActivity</string>
+    <string name="empty_list">No weather data to show ...</string>
 </resources>
