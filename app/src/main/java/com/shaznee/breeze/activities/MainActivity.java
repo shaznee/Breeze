@@ -155,6 +155,13 @@ public class MainActivity extends AppCompatActivity {
         startActivity(intent);
     }
 
+    @OnClick(R.id.hourlyButton)
+    protected void startHourlyActivity(View view) {
+        Intent intent = new Intent(this, HourlyForecast.class);
+        intent.putExtra(FORECAST, forecast);
+        startActivity(intent);
+    }
+
     private void showAlertDialog(String title, String message) {
 
         AlertDialog alertDialog = new AlertDialog.Builder(this)

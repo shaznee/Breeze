@@ -15,12 +15,12 @@ import com.shaznee.breeze.models.Forecast;
 /**
  * Created by Shaznee on 16-May-16.
  */
-public class DayListAdapter extends BaseAdapter {
+public class DayAdapter extends BaseAdapter {
 
     private Context context;
     private Forecast forecast;
 
-    public DayListAdapter(Context context, Forecast forecast) {
+    public DayAdapter(Context context, Forecast forecast) {
         this.context = context;
         this.forecast = forecast;
     }

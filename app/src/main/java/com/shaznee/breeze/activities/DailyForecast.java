@@ -5,7 +5,7 @@ import android.content.Intent;
 import android.os.Bundle;
 
 import com.shaznee.breeze.R;
-import com.shaznee.breeze.adapters.DayListAdapter;
+import com.shaznee.breeze.adapters.DayAdapter;
 import com.shaznee.breeze.models.Forecast;
 
 public class DailyForecast extends ListActivity {
@@ -18,7 +18,7 @@ public class DailyForecast extends ListActivity {
         Intent intent = getIntent();
         Forecast forecast = intent.getParcelableExtra(MainActivity.FORECAST);
 
-        DayListAdapter adapter = new DayListAdapter(this, forecast);
+        DayAdapter adapter = new DayAdapter(this, forecast);
         setListAdapter(adapter);
     }
 

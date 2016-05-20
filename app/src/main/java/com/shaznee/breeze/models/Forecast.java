@@ -50,6 +50,13 @@ public class Forecast implements Parcelable {
         return dateFormat.format(new Date(time * 1000));
     }
 
+    @JsonIgnore
+    public String getHour(long time) {
+        SimpleDateFormat dateFormat = new SimpleDateFormat("h a");
+        dateFormat.setTimeZone(TimeZone.getTimeZone(getTimezone()));
+        return dateFormat.format(new Date(time * 1000));
+    }
+
     public Currently getCurrently() {
         return currently;
     }
