@@ -1,4 +1,4 @@
-package com.shaznee.breeze.api;
+package com.shaznee.breeze.client.api;
 
 import com.shaznee.breeze.models.Forecast;
 

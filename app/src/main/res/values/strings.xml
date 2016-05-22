@@ -8,4 +8,9 @@
     <string name="title_activity_daily">DailyActivity</string>
     <string name="empty_list">No weather data to show ...</string>
     <string name="title_activity_hourly_forecast">HourlyForecast</string>
+    <string name="title_activity_swipe">SwipeActivity</string>
+    <string name="section_format">Hello World from section: %1$d</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>

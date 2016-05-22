@@ -42,6 +42,10 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value="com.shaznee.breeze.activities.MainActivity" />
         </activity>
+        <activity
+            android:name=".activities.SwipeActivity"
+            android:label="@string/title_activity_swipe"
+            android:theme="@style/AppTheme"></activity>
     </application>
 
 </manifest>

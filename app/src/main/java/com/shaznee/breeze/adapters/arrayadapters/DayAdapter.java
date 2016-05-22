@@ -1,4 +1,4 @@
-package com.shaznee.breeze.adapters;
+package com.shaznee.breeze.adapters.arrayadapters;
 
 import android.content.Context;
 import android.view.LayoutInflater;
