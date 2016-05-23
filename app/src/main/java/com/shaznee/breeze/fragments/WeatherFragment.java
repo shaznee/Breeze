@@ -16,22 +16,25 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.shaznee.breeze.client.Handler;
 import com.shaznee.breeze.R;
 import com.shaznee.breeze.activities.DailyForecast;
 import com.shaznee.breeze.activities.HourlyForecast;
-import com.shaznee.breeze.client.ForecastClient;
+import com.shaznee.breeze.locationservice.LocationHandler;
+import com.shaznee.breeze.locationservice.LocationProvider;
 import com.shaznee.breeze.models.Forecast;
+import com.shaznee.breeze.weatherservice.ForecastClient;
+import com.shaznee.breeze.weatherservice.ForecastHandler;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
-public class WeatherFragment extends Fragment implements Handler {
+public class WeatherFragment extends Fragment implements ForecastHandler, LocationHandler {
 
     private static final String TAG = WeatherFragment.class.getSimpleName();
 
     @BindView(R.id.timeLabel) TextView timeLabel;
+    @BindView(R.id.locationLabel) TextView locationLabel;
     @BindView(R.id.temperatureLabel) TextView temperatureLabel;
     @BindView(R.id.humidityValue) TextView humidityValue;
     @BindView(R.id.precipValue) TextView precipValue;
@@ -41,43 +44,37 @@ public class WeatherFragment extends Fragment implements Handler {
     @BindView(R.id.progressBar) ProgressBar progressBar;
 
     public static final String FORECAST = "FORECAST";
+    public static final String LOCATION_PREFERENCE = "PREFERENCE";
+    public static final String CURRENT_LOCATION = "CURRENT";
+    public static final String SAVED_LOCATION = "SAVED";
 
-    ForecastClient client = ForecastClient.getInstance();
+    private ForecastClient client = ForecastClient.getInstance();
+    private LocationProvider locationProvider;
 
     private Forecast forecast;
-
-    double latitude = 37.8267;
-    double longitude = -122.423;
-    // TODO: Rename parameter arguments, choose names that match
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-//    private static final String ARG_PARAM1 = "param1";
-//    private static final String ARG_PARAM2 = "param2";
-
-    // TODO: Rename and change types of parameters
-//    private String mParam1;
-//    private String mParam2;
-
+    private double latitude;
+    private double longitude;
+    private String cityName;
+    private String pref = CURRENT_LOCATION;
 
     private OnFragmentInteractionListener mListener;
 
     public WeatherFragment() {}
 
-//    public static WeatherFragment newInstance(String param1, String param2) {
-//        WeatherFragment fragment = new WeatherFragment();
-//        Bundle args = new Bundle();
-//        args.putString(ARG_PARAM1, param1);
-//        args.putString(ARG_PARAM2, param2);
-//        fragment.setArguments(args);
-//        return fragment;
-//    }
+    public static WeatherFragment newInstance(String preference) {
+        WeatherFragment fragment = new WeatherFragment();
+        Bundle args = new Bundle();
+        args.putString(LOCATION_PREFERENCE, preference);
+        fragment.setArguments(args);
+        return fragment;
+    }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-//        if (getArguments() != null) {
-//            mParam1 = getArguments().getString(ARG_PARAM1);
-//            mParam2 = getArguments().getString(ARG_PARAM2);
-//        }
+        if (getArguments() != null) {
+            pref = getArguments().getString(LOCATION_PREFERENCE);
+        }
     }
 
     @Override
@@ -87,7 +84,6 @@ public class WeatherFragment extends Fragment implements Handler {
         ButterKnife.bind(this, view);
 
         progressBar.setVisibility(View.INVISIBLE);
-        getForecast();
         return view;
     }
 
@@ -100,12 +96,36 @@ public class WeatherFragment extends Fragment implements Handler {
             throw new RuntimeException(context.toString()
                     + " must implement OnFragmentInteractionListener");
         }
+        if (pref.equals(CURRENT_LOCATION)){
+            locationProvider = new LocationProvider(context, this);
+            locationProvider.connect();
+        }
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        if (pref.equals(CURRENT_LOCATION)){
+            locationProvider.disconnect();
+        }
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        if (pref.equals(CURRENT_LOCATION)){
+            locationProvider.connect();
+        }
     }
 
     @Override
     public void onDetach() {
         super.onDetach();
         mListener = null;
+        if (pref.equals(CURRENT_LOCATION)){
+            locationProvider.disconnect();
+        }
+
     }
 
     @Override
@@ -121,15 +141,6 @@ public class WeatherFragment extends Fragment implements Handler {
         showAlertDialog(getString(R.string.error_title), getString(R.string.error_message));
     }
 
-    private void getForecast() {
-        if (isOnline()) {
-            toggleRefresh();
-            client.getForecast(latitude, longitude, this);
-        } else {
-            Toast.makeText(getActivity(), getString(R.string.no_network_string), Toast.LENGTH_LONG).show();
-        }
-    }
-
     private void toggleRefresh() {
         if (progressBar.getVisibility() == View.INVISIBLE){
             progressBar.setVisibility(View.VISIBLE);
@@ -137,11 +148,11 @@ public class WeatherFragment extends Fragment implements Handler {
         } else {
             progressBar.setVisibility(View.INVISIBLE);
             refreshImageView.setVisibility(View.VISIBLE);
-
         }
     }
 
     private void updateDisplay() {
+        locationLabel.setText(cityName);
         temperatureLabel.setText(forecast.getCurrently().getTemperature() + "");
         timeLabel.setText("At " + forecast.getFormattedTime() + " it will be");
         humidityValue.setText(forecast.getCurrently().getHumidity() + "");
@@ -159,7 +170,7 @@ public class WeatherFragment extends Fragment implements Handler {
 
     @OnClick(R.id.refreshImageView)
     protected void refresh(View view) {
-        getForecast();
+        handleNewLocation(cityName,latitude,longitude);
     }
 
     @OnClick(R.id.dailyButton)
@@ -177,7 +188,6 @@ public class WeatherFragment extends Fragment implements Handler {
     }
 
     private void showAlertDialog(String title, String message) {
-
         AlertDialog alertDialog = new AlertDialog.Builder(getActivity())
                 .setTitle(title)
                 .setMessage(message)
@@ -186,6 +196,19 @@ public class WeatherFragment extends Fragment implements Handler {
                 .create();
 
         alertDialog.show();
+    }
+
+    @Override
+    public void handleNewLocation(String cityName, double latitude, double longitude) {
+        this.cityName = cityName;
+        this.latitude = latitude;
+        this.longitude = longitude;
+        if (isOnline()) {
+            toggleRefresh();
+            client.getForecast(latitude, longitude, this);
+        } else {
+            Toast.makeText(getActivity(), getString(R.string.no_network_string), Toast.LENGTH_LONG).show();
+        }
     }
 
     public interface OnFragmentInteractionListener {

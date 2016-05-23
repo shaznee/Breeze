@@ -12,7 +12,6 @@ import com.shaznee.breeze.fragments.WeatherFragment;
 public class MainActivity extends AppCompatActivity implements WeatherFragment.OnFragmentInteractionListener {
 
     private SectionsPagerAdapter mSectionsPagerAdapter;
-
     private ViewPager mViewPager;
 
     @Override
@@ -21,11 +20,9 @@ public class MainActivity extends AppCompatActivity implements WeatherFragment.O
         setContentView(R.layout.activity_main);
 
         mSectionsPagerAdapter = new SectionsPagerAdapter(getSupportFragmentManager());
-
         mViewPager = (ViewPager) findViewById(R.id.container);
         mViewPager.setAdapter(mSectionsPagerAdapter);
     }
-
 
     @Override
     public void onFragmentInteraction() {

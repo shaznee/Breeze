@@ -19,13 +19,13 @@ public class SectionsPagerAdapter extends FragmentPagerAdapter {
     public Fragment getItem(int position) {
         // getItem is called to instantiate the fragment for the given page.
         // Return a PlaceholderFragment (defined as a static inner class below).
-        return new WeatherFragment();
+        return WeatherFragment.newInstance(WeatherFragment.CURRENT_LOCATION);
     }
 
     @Override
     public int getCount() {
         // Show 3 total pages.
-        return 3;
+        return 1;
     }
 
     @Override
