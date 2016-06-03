@@ -1,5 +1,6 @@
 package com.shaznee.breeze.activities;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -14,7 +15,7 @@ import com.shaznee.breeze.models.Forecast;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-public class HourlyForecast extends AppCompatActivity {
+public class HourlyForecastActivity extends Activity {
 
     @BindView(R.id.recyclerView) RecyclerView recyclerView;
 

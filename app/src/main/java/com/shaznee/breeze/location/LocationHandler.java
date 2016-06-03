@@ -1,4 +1,4 @@
-package com.shaznee.breeze.locationservice;
+package com.shaznee.breeze.location;
 
 /**
  * Created by Shaznee on 22-May-16.

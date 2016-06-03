@@ -14,6 +14,12 @@ public class MyLocation {
     private String cityName;
     private double latitude, longitude;
 
+    public MyLocation(String cityName, double latitude, double longitude) {
+        this.cityName = cityName;
+        this.latitude = latitude;
+        this.longitude = longitude;
+    }
+
     public String getCityName() {
         return cityName;
     }
@@ -26,16 +32,8 @@ public class MyLocation {
         return longitude;
     }
 
-    public void setLongitude(double longitude) {
-        this.longitude = longitude;
-    }
-
     public double getLatitude() {
         return latitude;
-    }
-
-    public void setLatitude(double latitude) {
-        this.latitude = latitude;
     }
 
     public String toJSON() throws JSONException {
@@ -48,11 +46,7 @@ public class MyLocation {
     }
 
     public static MyLocation fromJSON(String cityName, String jsonString) throws JSONException {
-        MyLocation myLocation = new MyLocation();
         JSONObject jsonObject = new JSONObject(jsonString);
-        myLocation.setCityName(cityName);
-        myLocation.setLatitude(jsonObject.getDouble(LATITUDE_KEY));
-        myLocation.setLongitude(jsonObject.getLong(LONGITUDE_KEY));
-        return myLocation;
+        return new MyLocation(cityName, jsonObject.getDouble(LATITUDE_KEY),jsonObject.getLong(LONGITUDE_KEY) );
     }
 }

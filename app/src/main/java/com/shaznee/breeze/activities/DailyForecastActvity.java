@@ -9,7 +9,7 @@ import com.shaznee.breeze.adapters.arrayadapters.DayAdapter;
 import com.shaznee.breeze.fragments.WeatherFragment;
 import com.shaznee.breeze.models.Forecast;
 
-public class DailyForecast extends ListActivity {
+public class DailyForecastActvity extends ListActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

@@ -17,10 +17,10 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.shaznee.breeze.R;
-import com.shaznee.breeze.activities.DailyForecast;
-import com.shaznee.breeze.activities.HourlyForecast;
-import com.shaznee.breeze.locationservice.LocationHandler;
-import com.shaznee.breeze.locationservice.LocationProvider;
+import com.shaznee.breeze.activities.DailyForecastActvity;
+import com.shaznee.breeze.activities.HourlyForecastActivity;
+import com.shaznee.breeze.location.LocationHandler;
+import com.shaznee.breeze.location.LocationProvider;
 import com.shaznee.breeze.models.Forecast;
 import com.shaznee.breeze.weatherservice.ForecastClient;
 import com.shaznee.breeze.weatherservice.ForecastHandler;
@@ -175,14 +175,14 @@ public class WeatherFragment extends Fragment implements ForecastHandler, Locati
 
     @OnClick(R.id.dailyButton)
     protected void startDailyActivity(View view) {
-        Intent intent = new Intent(getActivity(), DailyForecast.class);
+        Intent intent = new Intent(getActivity(), DailyForecastActvity.class);
         intent.putExtra(FORECAST, forecast);
         startActivity(intent);
     }
 
     @OnClick(R.id.hourlyButton)
     protected void startHourlyActivity(View view) {
-        Intent intent = new Intent(getActivity(), HourlyForecast.class);
+        Intent intent = new Intent(getActivity(), HourlyForecastActivity.class);
         intent.putExtra(FORECAST, forecast);
         startActivity(intent);
     }

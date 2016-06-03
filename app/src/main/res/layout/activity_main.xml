@@ -35,5 +35,42 @@
         android:layout_height="match_parent"
         app:layout_behavior="@string/appbar_scrolling_view_behavior" />
 
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="More"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentRight="true"
+        android:id="@+id/moreLabel"
+        android:textColor="@android:color/white"
+        android:textSize="16sp"
+        android:onClick="onMoreLabelClick"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Add"
+        android:id="@+id/addLabel"
+        android:layout_alignParentTop="true"
+        android:layout_toLeftOf="@+id/moreLabel"
+        android:layout_toStartOf="@+id/moreLabel"
+        android:paddingRight="8dp"
+        android:textColor="@android:color/white"
+        android:textSize="16sp"
+        android:onClick="onAddLabelClick"/>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Cities"
+        android:id="@+id/citiesLabel"
+        android:layout_alignParentTop="true"
+        android:layout_toLeftOf="@+id/addLabel"
+        android:layout_toStartOf="@+id/addLabel"
+        android:paddingRight="8dp"
+        android:textColor="@android:color/white"
+        android:textSize="16sp"
+        android:onClick="onCitiesLabelClick"/>
+
 
 </RelativeLayout>
