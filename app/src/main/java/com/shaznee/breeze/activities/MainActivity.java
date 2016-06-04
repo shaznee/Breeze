@@ -10,20 +10,31 @@ import android.widget.Toast;
 import com.shaznee.breeze.R;
 import com.shaznee.breeze.adapters.pageadapter.SectionsPagerAdapter;
 import com.shaznee.breeze.fragments.WeatherFragment;
+import com.shaznee.breeze.preferences.LocationPreferenceProvider;
+
+import org.json.JSONException;
 
 public class MainActivity extends AppCompatActivity implements WeatherFragment.OnFragmentInteractionListener {
 
     private SectionsPagerAdapter mSectionsPagerAdapter;
     private ViewPager mViewPager;
+    private LocationPreferenceProvider locationPreferenceProvider;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        locationPreferenceProvider = new LocationPreferenceProvider(this);
 
-        mSectionsPagerAdapter = new SectionsPagerAdapter(getSupportFragmentManager());
+        try {
+            mSectionsPagerAdapter = new SectionsPagerAdapter(getSupportFragmentManager(), locationPreferenceProvider.findAll());
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
         mViewPager = (ViewPager) findViewById(R.id.container);
         mViewPager.setAdapter(mSectionsPagerAdapter);
+
     }
 
     @Override

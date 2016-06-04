@@ -5,39 +5,55 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 
 import com.shaznee.breeze.fragments.WeatherFragment;
+import com.shaznee.breeze.preferences.MyLocation;
+
+import java.util.Collections;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
 
 /**
  * Created by Shaznee on 22-May-16.
  */
 public class SectionsPagerAdapter extends FragmentPagerAdapter {
 
-    public SectionsPagerAdapter(FragmentManager fm) {
+    List<MyLocation> locations;
+
+    public SectionsPagerAdapter(FragmentManager fm, List<MyLocation> locations) {
         super(fm);
+        this.locations = locations;
     }
 
     @Override
     public Fragment getItem(int position) {
         // getItem is called to instantiate the fragment for the given page.
         // Return a PlaceholderFragment (defined as a static inner class below).
-        return WeatherFragment.newInstance(WeatherFragment.CURRENT_LOCATION);
+        if (position == 0) {
+            return WeatherFragment.newInstance(null);
+        } else {
+            return WeatherFragment.newInstance(locations.get(position));
+        }
     }
 
     @Override
     public int getCount() {
-        // Show 3 total pages.
-        return 1;
+        return locations.size();
     }
 
     @Override
     public CharSequence getPageTitle(int position) {
         switch (position) {
             case 0:
-                return "SECTION 1";
-            case 1:
-                return "SECTION 2";
-            case 2:
-                return "SECTION 3";
+                return "Current Location";
+            default:
+                return locations.get(position).getCityName();
         }
-        return null;
+
+    }
+
+    public void addLocations(List<MyLocation> locations) {
+        locations.clear();
+        locations.addAll(locations);
+        notifyDataSetChanged();
     }
 }

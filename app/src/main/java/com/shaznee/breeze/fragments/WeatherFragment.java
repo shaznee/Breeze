@@ -22,6 +22,7 @@ import com.shaznee.breeze.activities.HourlyForecastActivity;
 import com.shaznee.breeze.location.LocationHandler;
 import com.shaznee.breeze.location.LocationProvider;
 import com.shaznee.breeze.models.Forecast;
+import com.shaznee.breeze.preferences.MyLocation;
 import com.shaznee.breeze.weatherservice.ForecastClient;
 import com.shaznee.breeze.weatherservice.ForecastHandler;
 
@@ -44,14 +45,16 @@ public class WeatherFragment extends Fragment implements ForecastHandler, Locati
     @BindView(R.id.progressBar) ProgressBar progressBar;
 
     public static final String FORECAST = "FORECAST";
-    public static final String LOCATION_PREFERENCE = "PREFERENCE";
-    public static final String CURRENT_LOCATION = "CURRENT";
-    public static final String SAVED_LOCATION = "SAVED";
+
+    private static final String LOCATION_PREFERENCE = "PREFERENCE";
+    private static final String CURRENT_LOCATION = "CURRENT";
+    private static final String SAVED_LOCATION = "SAVED";
 
     private ForecastClient client = ForecastClient.getInstance();
     private LocationProvider locationProvider;
-
     private Forecast forecast;
+    private MyLocation location;
+
     private double latitude;
     private double longitude;
     private String cityName;
@@ -61,10 +64,14 @@ public class WeatherFragment extends Fragment implements ForecastHandler, Locati
 
     public WeatherFragment() {}
 
-    public static WeatherFragment newInstance(String preference) {
+    public static WeatherFragment newInstance(MyLocation location) {
         WeatherFragment fragment = new WeatherFragment();
         Bundle args = new Bundle();
-        args.putString(LOCATION_PREFERENCE, preference);
+        if (location != null) {
+            args.putString(LOCATION_PREFERENCE, SAVED_LOCATION);
+        } else {
+            args.putString(LOCATION_PREFERENCE, CURRENT_LOCATION);
+        }
         fragment.setArguments(args);
         return fragment;
     }
@@ -99,6 +106,8 @@ public class WeatherFragment extends Fragment implements ForecastHandler, Locati
         if (pref.equals(CURRENT_LOCATION)){
             locationProvider = new LocationProvider(context, this);
             locationProvider.connect();
+        } else {
+            handleNewLocation(location.getCityName(), location.getLatitude(), location.getLongitude());
         }
     }
 

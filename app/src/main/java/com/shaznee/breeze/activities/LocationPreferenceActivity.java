@@ -1,7 +1,6 @@
 package com.shaznee.breeze.activities;
 
 import android.app.ListActivity;
-import android.content.Intent;
 import android.os.Bundle;
 
 import com.shaznee.breeze.R;
@@ -15,7 +14,7 @@ import java.util.List;
 
 public class LocationPreferenceActivity extends ListActivity {
 
-    private static final int EDITOR_ACTIVITY_REQUEST = 1001;
+    private static final int PREFERENCE_ACTIVITY_REQUEST = 1001;
     private List<MyLocation> locations;
     private LocationPreferenceProvider locationPreferenceProvider;
 
