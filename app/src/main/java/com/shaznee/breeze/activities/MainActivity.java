@@ -11,6 +11,7 @@ import com.shaznee.breeze.R;
 import com.shaznee.breeze.adapters.pageadapter.SectionsPagerAdapter;
 import com.shaznee.breeze.fragments.WeatherFragment;
 import com.shaznee.breeze.preferences.LocationPreferenceProvider;
+import com.shaznee.breeze.preferences.MyLocation;
 
 import org.json.JSONException;
 
@@ -25,7 +26,6 @@ public class MainActivity extends AppCompatActivity implements WeatherFragment.O
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         locationPreferenceProvider = new LocationPreferenceProvider(this);
-
         try {
             mSectionsPagerAdapter = new SectionsPagerAdapter(getSupportFragmentManager(), locationPreferenceProvider.findAll());
         } catch (JSONException e) {

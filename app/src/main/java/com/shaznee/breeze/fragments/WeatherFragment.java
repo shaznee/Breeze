@@ -8,6 +8,7 @@ import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.content.ContextCompat;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -45,6 +46,7 @@ public class WeatherFragment extends Fragment implements ForecastHandler, Locati
     @BindView(R.id.progressBar) ProgressBar progressBar;
 
     public static final String FORECAST = "FORECAST";
+    private static final String LOCATION = "LOCATION";
 
     private static final String LOCATION_PREFERENCE = "PREFERENCE";
     private static final String CURRENT_LOCATION = "CURRENT";
@@ -69,6 +71,7 @@ public class WeatherFragment extends Fragment implements ForecastHandler, Locati
         Bundle args = new Bundle();
         if (location != null) {
             args.putString(LOCATION_PREFERENCE, SAVED_LOCATION);
+            args.putParcelable(LOCATION, location);
         } else {
             args.putString(LOCATION_PREFERENCE, CURRENT_LOCATION);
         }
@@ -81,6 +84,9 @@ public class WeatherFragment extends Fragment implements ForecastHandler, Locati
         super.onCreate(savedInstanceState);
         if (getArguments() != null) {
             pref = getArguments().getString(LOCATION_PREFERENCE);
+            if (pref.equals(SAVED_LOCATION)) {
+                this.location = getArguments().getParcelable(LOCATION);
+            }
         }
     }
 
@@ -103,11 +109,16 @@ public class WeatherFragment extends Fragment implements ForecastHandler, Locati
             throw new RuntimeException(context.toString()
                     + " must implement OnFragmentInteractionListener");
         }
-        if (pref.equals(CURRENT_LOCATION)){
-            locationProvider = new LocationProvider(context, this);
+    }
+
+    @Override
+    public void onStart() {
+        super.onStart();
+        if (pref.equals(SAVED_LOCATION)) {
+            handleLocation(location.getCityName(), location.getLatitude(), location.getLongitude());
+        } else if (pref.equals(CURRENT_LOCATION)) {
+            locationProvider = new LocationProvider(getContext(), this);
             locationProvider.connect();
-        } else {
-            handleNewLocation(location.getCityName(), location.getLatitude(), location.getLongitude());
         }
     }
 
@@ -209,6 +220,10 @@ public class WeatherFragment extends Fragment implements ForecastHandler, Locati
 
     @Override
     public void handleNewLocation(String cityName, double latitude, double longitude) {
+        handleLocation(cityName, latitude, longitude);
+    }
+
+    private void handleLocation(String cityName, double latitude, double longitude) {
         this.cityName = cityName;
         this.latitude = latitude;
         this.longitude = longitude;
@@ -223,4 +238,5 @@ public class WeatherFragment extends Fragment implements ForecastHandler, Locati
     public interface OnFragmentInteractionListener {
         void onFragmentInteraction();
     }
+
 }

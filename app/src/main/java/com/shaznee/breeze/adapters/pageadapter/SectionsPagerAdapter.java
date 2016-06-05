@@ -31,13 +31,16 @@ public class SectionsPagerAdapter extends FragmentPagerAdapter {
         if (position == 0) {
             return WeatherFragment.newInstance(null);
         } else {
-            return WeatherFragment.newInstance(locations.get(position));
+            return WeatherFragment.newInstance(locations.get(position - 1));
         }
     }
 
     @Override
     public int getCount() {
-        return locations.size();
+        if (locations.size() == 0) {
+            return 1;
+        }
+        return locations.size() + 1;
     }
 
     @Override
