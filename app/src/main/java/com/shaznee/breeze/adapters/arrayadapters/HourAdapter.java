@@ -22,7 +22,6 @@ public class HourAdapter extends RecyclerView.Adapter<HourAdapter.HourViewHolder
         this.forecast = forecast;
     }
 
-
     @Override
     public HourViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.hourly_list_item, parent, false);

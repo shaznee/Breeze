@@ -156,7 +156,8 @@ public class WeatherFragment extends Fragment implements ForecastHandler, Locati
     }
 
     @Override
-    public void failure() {
+    public void failure(Throwable throwable) {
+        Log.e(TAG, "On Failure", throwable);
         toggleRefresh();
         showAlertDialog(getString(R.string.error_title), getString(R.string.error_message));
     }

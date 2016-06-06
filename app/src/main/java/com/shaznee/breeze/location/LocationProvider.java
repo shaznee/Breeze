@@ -75,7 +75,7 @@ public class LocationProvider extends LocationAddress implements GoogleApiClient
                 try {
                     locationHandler.handleNewLocation(getCityName(location.getLatitude(),location.getLongitude()),location.getLatitude(), location.getLongitude());
                 } catch (IOException e) {
-                    e.printStackTrace();
+                    Log.d(TAG, "IOException : ", e);
                 }
             }
             Log.i(TAG, "Location services connected.");
@@ -100,7 +100,7 @@ public class LocationProvider extends LocationAddress implements GoogleApiClient
         try {
             locationHandler.handleNewLocation(getCityName(location.getLatitude(),location.getLongitude()),location.getLatitude(), location.getLongitude());
         } catch (IOException e) {
-            e.printStackTrace();
+            Log.d(TAG, "IOException : ", e);
         }
     }
 

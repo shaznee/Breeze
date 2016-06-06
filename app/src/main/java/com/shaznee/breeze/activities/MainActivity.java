@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.View;
 import android.widget.Toast;
 
@@ -17,6 +18,8 @@ import org.json.JSONException;
 
 public class MainActivity extends AppCompatActivity implements WeatherFragment.OnFragmentInteractionListener {
 
+    private static final String TAG = MainActivity.class.getSimpleName();
+
     private SectionsPagerAdapter mSectionsPagerAdapter;
     private ViewPager mViewPager;
     private LocationPreferenceProvider locationPreferenceProvider;
@@ -29,7 +32,7 @@ public class MainActivity extends AppCompatActivity implements WeatherFragment.O
         try {
             mSectionsPagerAdapter = new SectionsPagerAdapter(getSupportFragmentManager(), locationPreferenceProvider.findAll());
         } catch (JSONException e) {
-            e.printStackTrace();
+            Log.d(TAG, "JSONException : ", e);
         }
 
         mViewPager = (ViewPager) findViewById(R.id.container);

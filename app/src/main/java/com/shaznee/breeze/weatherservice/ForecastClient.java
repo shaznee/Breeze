@@ -21,7 +21,7 @@ public class ForecastClient {
     private static final String TAG = ForecastClient.class.getSimpleName();
 
     private static final String BASE_URL = "https://api.forecast.io";
-    private final String apiKey = "e738670a91beb00176965e46a062ce23";
+    private final String apiKey = "ef388c6f41ff45add4bae9c3562b2304";
 
     private WeatherAPI weatherAPI;
 
@@ -62,8 +62,7 @@ public class ForecastClient {
 
             @Override
             public void onFailure(Call<Forecast> call, Throwable t) {
-                Log.e(TAG, "On Failure", t);
-                forecastHandler.failure();
+                forecastHandler.failure(t);
             }
         });
     }

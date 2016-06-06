@@ -2,6 +2,7 @@ package com.shaznee.breeze.activities;
 
 import android.app.ListActivity;
 import android.os.Bundle;
+import android.util.Log;
 
 import com.shaznee.breeze.R;
 import com.shaznee.breeze.adapters.arrayadapters.PreferenceAdapter;
@@ -13,6 +14,8 @@ import org.json.JSONException;
 import java.util.List;
 
 public class LocationPreferenceActivity extends ListActivity {
+
+    private static final String TAG = LocationPreferenceActivity.class.getSimpleName();
 
     private static final int PREFERENCE_ACTIVITY_REQUEST = 1001;
     private List<MyLocation> locations;
@@ -26,7 +29,7 @@ public class LocationPreferenceActivity extends ListActivity {
         try {
             refreshDisplay();
         } catch (JSONException e) {
-            e.printStackTrace();
+            Log.d(TAG, "JSONException : ", e);
         }
     }
 

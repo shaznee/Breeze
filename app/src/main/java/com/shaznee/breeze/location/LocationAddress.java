@@ -104,7 +104,6 @@ public abstract class LocationAddress {
 
     protected String getCityName(double latitude, double longitude) throws IOException {
         StringBuilder builder = new StringBuilder();
-
         List<Address> address = geocoder.getFromLocation(latitude, longitude, 1);
         builder.append(address.get(0).getLocality())
                 .append(", ")
@@ -117,10 +116,6 @@ public abstract class LocationAddress {
         List<Address> addresses = geocoder.getFromLocationName(address, 5);
         if (addresses != null) {
             Address location = addresses.get(0);
-            double lat = location.getLatitude();
-            double lng = location.getLongitude();
-            Log.i("Lat",""+lat);
-            Log.i("Lng",""+lng);
             return location;
         }
         return null;

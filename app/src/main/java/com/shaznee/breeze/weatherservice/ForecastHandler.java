@@ -9,5 +9,5 @@ public interface ForecastHandler {
 
     void successful(Forecast forecast);
 
-    void failure();
+    void failure(Throwable throwable);
 }
