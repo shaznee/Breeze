@@ -5,7 +5,7 @@
     android:layout_height="wrap_content"
     android:paddingTop="8dp"
     android:paddingBottom="8dp"
-    tools:background="#0E337F">
+    tools:background="@color/layoutBackground">
 
     <TextView
         android:layout_width="80dp"
