@@ -45,6 +45,11 @@ public class MainActivity extends AppCompatActivity implements WeatherFragment.O
         Toast.makeText(this, "Call from fragment", Toast.LENGTH_SHORT).show();
     }
 
+    @Override
+    public boolean onSearchRequested() {
+        return super.onSearchRequested();
+    }
+
     protected void onCitiesLabelClick(View view) {
         startActivity(new Intent(this, LocationPreferenceActivity.class));
     }

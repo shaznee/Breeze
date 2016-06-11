@@ -16,6 +16,7 @@ import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.location.LocationListener;
 import com.google.android.gms.location.LocationRequest;
 import com.google.android.gms.location.LocationServices;
+import com.google.android.gms.location.places.Places;
 
 import java.io.IOException;
 
@@ -37,6 +38,7 @@ public class LocationProvider extends LocationAddress implements GoogleApiClient
                 .addConnectionCallbacks(this)
                 .addOnConnectionFailedListener(this)
                 .addApi(LocationServices.API)
+                .addApi(Places.GEO_DATA_API)
                 .build();
 
         this.locationHandler = callback;
@@ -46,6 +48,10 @@ public class LocationProvider extends LocationAddress implements GoogleApiClient
                 .setPriority(LocationRequest.PRIORITY_HIGH_ACCURACY)
                 .setInterval(10 * 1000)        // 10 seconds, in milliseconds
                 .setFastestInterval(1 * 1000); // 1 second, in milliseconds
+    }
+
+    public GoogleApiClient getGoogleApiClient() {
+        return googleApiClient;
     }
 
     public void connect() {
@@ -73,7 +79,9 @@ public class LocationProvider extends LocationAddress implements GoogleApiClient
             } else {
                 Log.i(TAG, "On connected handling new location");
                 try {
-                    locationHandler.handleNewLocation(getCityName(location.getLatitude(),location.getLongitude()),location.getLatitude(), location.getLongitude());
+                    if (locationHandler != null) {
+                        locationHandler.handleNewLocation(getCityName(location.getLatitude(),location.getLongitude()),location.getLatitude(), location.getLongitude());
+                    }
                 } catch (IOException e) {
                     Log.d(TAG, "IOException : ", e);
                 }
@@ -98,7 +106,9 @@ public class LocationProvider extends LocationAddress implements GoogleApiClient
     @Override
     public void onLocationChanged(Location location) {
         try {
-            locationHandler.handleNewLocation(getCityName(location.getLatitude(),location.getLongitude()),location.getLatitude(), location.getLongitude());
+            if (locationHandler != null) {
+                locationHandler.handleNewLocation(getCityName(location.getLatitude(), location.getLongitude()), location.getLatitude(), location.getLongitude());
+            }
         } catch (IOException e) {
             Log.d(TAG, "IOException : ", e);
         }
