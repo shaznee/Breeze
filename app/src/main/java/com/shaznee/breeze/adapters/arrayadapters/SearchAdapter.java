@@ -57,7 +57,11 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.SearchView
 
     @Override
     public int getItemCount() {
-        return selectedCities.size();
+        if (selectedCities == null) {
+            return 0;
+        } else {
+            return selectedCities.size();
+        }
     }
 
     @Override

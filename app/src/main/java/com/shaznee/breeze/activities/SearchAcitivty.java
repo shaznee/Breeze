@@ -6,9 +6,9 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.SearchView;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
-import android.widget.SearchView;
 
 import com.shaznee.breeze.R;
 import com.shaznee.breeze.adapters.arrayadapters.SearchAdapter;
@@ -88,5 +88,11 @@ public class SearchAcitivty extends AppCompatActivity implements SearchView.OnQu
     public boolean onQueryTextChange(String newText) {
         searchAdapter.getFilter().filter(newText);
         return true;
+    }
+
+    private void publishResults() {
+        Intent intent = new Intent();
+        setResult(RESULT_OK, intent);
+        finish();
     }
 }

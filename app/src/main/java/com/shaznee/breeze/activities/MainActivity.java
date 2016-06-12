@@ -20,6 +20,8 @@ public class MainActivity extends AppCompatActivity implements WeatherFragment.O
 
     private static final String TAG = MainActivity.class.getSimpleName();
 
+    private static final int SEARCH_REQUEST = 1001;
+
     private SectionsPagerAdapter mSectionsPagerAdapter;
     private ViewPager mViewPager;
     private LocationPreferenceProvider locationPreferenceProvider;
@@ -55,8 +57,17 @@ public class MainActivity extends AppCompatActivity implements WeatherFragment.O
     }
 
     protected void onAddLabelClick(View view) {
+        Intent intent = new Intent(this, SearchAcitivty.class);
+        startActivityForResult(intent, SEARCH_REQUEST);
     }
 
     protected void onMoreLabelClick(View view) {
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if (resultCode == RESULT_OK && requestCode == SEARCH_REQUEST) {
+            Toast.makeText(this, "On activity result", Toast.LENGTH_LONG).show();
+        }
     }
 }
