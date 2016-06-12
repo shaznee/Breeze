@@ -15,24 +15,25 @@
         android:id="@+id/container"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        app:layout_behavior="@string/appbar_scrolling_view_behavior" />
+        app:layout_behavior="@string/appbar_scrolling_view_behavior"/>
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="MORE"
+        android:text="@string/string_more"
         android:layout_alignParentTop="true"
         android:layout_alignParentRight="true"
         android:layout_alignParentEnd="true"
         android:id="@+id/moreLabel"
         android:textColor="@android:color/white"
         android:textSize="@dimen/menu_text_size"
-        android:onClick="onMoreLabelClick"/>
+        android:onClick="onMoreLabelClick"
+        android:textStyle="bold" />
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="ADD"
+        android:text="@string/string_add"
         android:id="@+id/addLabel"
         android:layout_alignParentTop="true"
         android:layout_toLeftOf="@+id/moreLabel"
@@ -40,12 +41,13 @@
         android:paddingRight="@dimen/menu_padding"
         android:textColor="@android:color/white"
         android:textSize="@dimen/menu_text_size"
-        android:onClick="onAddLabelClick"/>
+        android:onClick="onAddLabelClick"
+        android:textStyle="bold" />
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="CITIES"
+        android:text="@string/string_cities"
         android:id="@+id/citiesLabel"
         android:layout_alignParentTop="true"
         android:layout_toLeftOf="@+id/addLabel"
@@ -53,7 +55,8 @@
         android:paddingRight="8dp"
         android:textColor="@android:color/white"
         android:textSize="@dimen/menu_text_size"
-        android:onClick="onCitiesLabelClick"/>
+        android:onClick="onCitiesLabelClick"
+        android:textStyle="bold" />
 
 
 </RelativeLayout>

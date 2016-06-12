@@ -9,15 +9,20 @@ import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.SearchView;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
+import android.view.View;
 
 import com.shaznee.breeze.R;
-import com.shaznee.breeze.adapters.arrayadapters.SearchAdapter;
+import com.shaznee.breeze.adapters.recycleradapters.SearchAdapter;
+import com.shaznee.breeze.listeners.SearchClickListener;
 import com.shaznee.breeze.location.LocationProvider;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-public class SearchAcitivty extends AppCompatActivity implements SearchView.OnQueryTextListener {
+public class SearchAcitivty extends AppCompatActivity implements
+        SearchView.OnQueryTextListener, SearchClickListener.OnItemClickListener {
+
+    public static final String SEARCH_RESULT = "SEARCH_RESULT";
 
     @BindView(R.id.recyclerView) RecyclerView recyclerView;
 
@@ -31,13 +36,13 @@ public class SearchAcitivty extends AppCompatActivity implements SearchView.OnQu
         Toolbar searchBar = (Toolbar) findViewById(R.id.searchBar);
         setSupportActionBar(searchBar);
         ButterKnife.bind(this);
-
         locationProvider = new LocationProvider(this, null);
 
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(this);
         searchAdapter = new SearchAdapter(locationProvider.getGoogleApiClient());
         recyclerView.setAdapter(searchAdapter);
         recyclerView.setLayoutManager(layoutManager);
+        recyclerView.addOnItemTouchListener(new SearchClickListener(this, this));
 
         handleIntent(getIntent());
     }
@@ -90,9 +95,15 @@ public class SearchAcitivty extends AppCompatActivity implements SearchView.OnQu
         return true;
     }
 
-    private void publishResults() {
+    private void publishResults(String place) {
         Intent intent = new Intent();
+        intent.putExtra(SEARCH_RESULT, place);
         setResult(RESULT_OK, intent);
         finish();
+    }
+
+    @Override
+    public void onItemClick(View view, int position) {
+        publishResults(searchAdapter.getItem(position));
     }
 }

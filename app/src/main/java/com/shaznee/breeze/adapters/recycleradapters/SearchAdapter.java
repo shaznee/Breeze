@@ -1,4 +1,4 @@
-package com.shaznee.breeze.adapters.arrayadapters;
+package com.shaznee.breeze.adapters.recycleradapters;
 
 import android.graphics.Typeface;
 import android.support.v7.widget.RecyclerView;
@@ -98,6 +98,10 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.SearchView
                 }
             }
         };
+    }
+
+    public String getItem(int position) {
+        return selectedCities.get(position).getFullText(null).toString();
     }
 
     private ArrayList<AutocompletePrediction> getAutocomplete(CharSequence constraint) {

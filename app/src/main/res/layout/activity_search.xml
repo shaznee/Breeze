@@ -10,7 +10,7 @@
     tools:context=".activities.SearchAcitivty"
     android:background="@drawable/bg_gradient">
 
-    <include layout="@layout/search_bar"
+    <include layout="@layout/action_bar"
         android:id="@+id/searchBar"/>
 
     <android.support.v7.widget.RecyclerView

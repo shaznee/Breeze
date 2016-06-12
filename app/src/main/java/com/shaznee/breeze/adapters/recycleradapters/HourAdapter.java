@@ -1,4 +1,4 @@
-package com.shaznee.breeze.adapters.arrayadapters;
+package com.shaznee.breeze.adapters.recycleradapters;
 
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;

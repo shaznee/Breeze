@@ -3,12 +3,11 @@ package com.shaznee.breeze.activities;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 
 import com.shaznee.breeze.R;
-import com.shaznee.breeze.adapters.arrayadapters.HourAdapter;
+import com.shaznee.breeze.adapters.recycleradapters.HourAdapter;
 import com.shaznee.breeze.fragments.WeatherFragment;
 import com.shaznee.breeze.models.Forecast;
 

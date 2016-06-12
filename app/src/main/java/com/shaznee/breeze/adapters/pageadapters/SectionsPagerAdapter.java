@@ -1,4 +1,4 @@
-package com.shaznee.breeze.adapters.pageadapter;
+package com.shaznee.breeze.adapters.pageadapters;
 
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -7,10 +7,7 @@ import android.support.v4.app.FragmentPagerAdapter;
 import com.shaznee.breeze.fragments.WeatherFragment;
 import com.shaznee.breeze.preferences.MyLocation;
 
-import java.util.Collections;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 
 /**
  * Created by Shaznee on 22-May-16.

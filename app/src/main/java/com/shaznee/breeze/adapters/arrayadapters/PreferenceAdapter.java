@@ -59,5 +59,4 @@ public class PreferenceAdapter extends BaseAdapter {
     private static class ViewHolder {
         TextView cityLabel;
     }
-
 }

@@ -1,8 +1,12 @@
 package com.shaznee.breeze.activities;
 
-import android.app.ListActivity;
+import android.content.Intent;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
 import android.util.Log;
+import android.view.View;
+import android.widget.ListView;
 
 import com.shaznee.breeze.R;
 import com.shaznee.breeze.adapters.arrayadapters.PreferenceAdapter;
@@ -13,18 +17,26 @@ import org.json.JSONException;
 
 import java.util.List;
 
-public class LocationPreferenceActivity extends ListActivity {
+import butterknife.BindView;
+import butterknife.ButterKnife;
+
+public class LocationPreferenceActivity extends AppCompatActivity {
 
     private static final String TAG = LocationPreferenceActivity.class.getSimpleName();
 
-    private static final int PREFERENCE_ACTIVITY_REQUEST = 1001;
+    private static final int SEARCH_REQUEST = 1001;
     private List<MyLocation> locations;
     private LocationPreferenceProvider locationPreferenceProvider;
+    @BindView(R.id.preference_list) ListView preferenceList;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_location_preference);
+        Toolbar searchBar = (Toolbar) findViewById(R.id.action_bar);
+        setSupportActionBar(searchBar);
+        ButterKnife.bind(this);
+
         locationPreferenceProvider = new LocationPreferenceProvider(this);
         try {
             refreshDisplay();
@@ -36,16 +48,16 @@ public class LocationPreferenceActivity extends ListActivity {
     private void refreshDisplay() throws JSONException {
         locations = locationPreferenceProvider.findAll();
         PreferenceAdapter adapter = new PreferenceAdapter(this, locations);
-        setListAdapter(adapter);
+        preferenceList.setAdapter(adapter);
     }
 
-//    private void addLocation() {
-//        MyLocation location = new MyLocation();
-//        Intent intent = new Intent(this, SearchActivity.class);
-////        intent.putExtra(Note.KEY, note.getKey());
-////        intent.putExtra(Note.TEXT, note.getText());
-//        startActivityForResult(intent, EDITOR_ACTIVITY_REQUEST);
-//    }
+    protected void onAddLabelClick(View view) {
+        Intent intent = new Intent(this, SearchAcitivty.class);
+        startActivityForResult(intent, SEARCH_REQUEST);
+    }
+
+    protected void onMoreLabelClick(View view) {
+    }
 
 //    @Override
 //    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
