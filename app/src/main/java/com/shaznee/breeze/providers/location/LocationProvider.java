@@ -1,4 +1,4 @@
-package com.shaznee.breeze.location;
+package com.shaznee.breeze.providers.location;
 
 import android.Manifest;
 import android.content.Context;
@@ -13,9 +13,11 @@ import android.widget.Toast;
 
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.api.GoogleApiClient;
+import com.google.android.gms.common.api.ResultCallback;
 import com.google.android.gms.location.LocationListener;
 import com.google.android.gms.location.LocationRequest;
 import com.google.android.gms.location.LocationServices;
+import com.google.android.gms.location.places.PlaceBuffer;
 import com.google.android.gms.location.places.Places;
 
 import java.io.IOException;
@@ -28,11 +30,11 @@ public class LocationProvider extends LocationAddress implements GoogleApiClient
 
     private static final String TAG = LocationProvider.class.getSimpleName();
 
-    private LocationHandler locationHandler;
+    private LocationChangeCallBack locationChangeCallBack;
     private GoogleApiClient googleApiClient;
     private LocationRequest locationRequest;
 
-    public LocationProvider(Context context, LocationHandler callback) {
+    public LocationProvider(Context context, LocationChangeCallBack callback) {
         super(context);
         this.googleApiClient = new GoogleApiClient.Builder(context)
                 .addConnectionCallbacks(this)
@@ -41,7 +43,7 @@ public class LocationProvider extends LocationAddress implements GoogleApiClient
                 .addApi(Places.GEO_DATA_API)
                 .build();
 
-        this.locationHandler = callback;
+        this.locationChangeCallBack = callback;
 
         // Create the LocationRequest object
         this.locationRequest = LocationRequest.create()
@@ -79,8 +81,8 @@ public class LocationProvider extends LocationAddress implements GoogleApiClient
             } else {
                 Log.i(TAG, "On connected handling new location");
                 try {
-                    if (locationHandler != null) {
-                        locationHandler.handleNewLocation(getCityName(location.getLatitude(),location.getLongitude()),location.getLatitude(), location.getLongitude());
+                    if (locationChangeCallBack != null) {
+                        locationChangeCallBack.handleNewLocation(getCityName(location.getLatitude(),location.getLongitude()),location.getLatitude(), location.getLongitude());
                     }
                 } catch (IOException e) {
                     Log.d(TAG, "IOException : ", e);
@@ -106,13 +108,27 @@ public class LocationProvider extends LocationAddress implements GoogleApiClient
     @Override
     public void onLocationChanged(Location location) {
         try {
-            if (locationHandler != null) {
-                locationHandler.handleNewLocation(getCityName(location.getLatitude(), location.getLongitude()), location.getLatitude(), location.getLongitude());
+            if (locationChangeCallBack != null) {
+                locationChangeCallBack.handleNewLocation(getCityName(location.getLatitude(), location.getLongitude()), location.getLatitude(), location.getLongitude());
             }
         } catch (IOException e) {
             Log.d(TAG, "IOException : ", e);
         }
     }
 
+    public void getPlaceById(String placeId, final PlaceCallback placeCallback) {
+        Places.GeoDataApi.getPlaceById(googleApiClient, placeId)
+                .setResultCallback(new ResultCallback<PlaceBuffer>() {
+                    @Override
+                    public void onResult(PlaceBuffer places) {
+                        if (places.getStatus().isSuccess() && places.getCount() > 0) {
+                            placeCallback.onPlaceFound(places.get(0));
+                        } else {
+                            placeCallback.onPlaceNotFound(new Exception("Place not found"));
+                        }
+                        places.release();
+                    }
+                });
+    }
 
 }

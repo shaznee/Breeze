@@ -9,7 +9,7 @@ import android.support.v7.widget.RecyclerView;
 import com.shaznee.breeze.R;
 import com.shaznee.breeze.adapters.recycleradapters.HourAdapter;
 import com.shaznee.breeze.fragments.WeatherFragment;
-import com.shaznee.breeze.models.Forecast;
+import com.shaznee.breeze.models.weather.Forecast;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;

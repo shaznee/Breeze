@@ -8,8 +8,8 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.shaznee.breeze.R;
-import com.shaznee.breeze.models.Data;
-import com.shaznee.breeze.models.Forecast;
+import com.shaznee.breeze.models.weather.Data;
+import com.shaznee.breeze.models.weather.Forecast;
 
 /**
  * Created by Shaznee on 18-May-16.

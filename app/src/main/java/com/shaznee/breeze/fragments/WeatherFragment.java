@@ -20,18 +20,18 @@ import android.widget.Toast;
 import com.shaznee.breeze.R;
 import com.shaznee.breeze.activities.DailyForecastActvity;
 import com.shaznee.breeze.activities.HourlyForecastActivity;
-import com.shaznee.breeze.location.LocationHandler;
-import com.shaznee.breeze.location.LocationProvider;
-import com.shaznee.breeze.models.Forecast;
-import com.shaznee.breeze.preferences.MyLocation;
+import com.shaznee.breeze.providers.location.LocationChangeCallBack;
+import com.shaznee.breeze.providers.location.LocationProvider;
+import com.shaznee.breeze.models.weather.Forecast;
+import com.shaznee.breeze.models.location.MyLocation;
 import com.shaznee.breeze.weatherservice.ForecastClient;
-import com.shaznee.breeze.weatherservice.ForecastHandler;
+import com.shaznee.breeze.weatherservice.ForecastCallBack;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
-public class WeatherFragment extends Fragment implements ForecastHandler, LocationHandler {
+public class WeatherFragment extends Fragment implements ForecastCallBack, LocationChangeCallBack {
 
     private static final String TAG = WeatherFragment.class.getSimpleName();
 

@@ -7,7 +7,7 @@ import android.os.Bundle;
 import com.shaznee.breeze.R;
 import com.shaznee.breeze.adapters.arrayadapters.DayAdapter;
 import com.shaznee.breeze.fragments.WeatherFragment;
-import com.shaznee.breeze.models.Forecast;
+import com.shaznee.breeze.models.weather.Forecast;
 
 public class DailyForecastActvity extends ListActivity {
 

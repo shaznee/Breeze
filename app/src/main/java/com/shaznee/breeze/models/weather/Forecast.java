@@ -1,4 +1,4 @@
-package com.shaznee.breeze.models;
+package com.shaznee.breeze.models.weather;
 
 import android.os.Parcel;
 import android.os.Parcelable;

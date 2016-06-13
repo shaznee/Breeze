@@ -1,4 +1,4 @@
-package com.shaznee.breeze.models;
+package com.shaznee.breeze.models.weather;
 
 import android.os.Parcel;
 import android.os.Parcelable;
@@ -7,7 +7,6 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.shaznee.breeze.R;
 
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @JsonIgnoreProperties(ignoreUnknown=true)

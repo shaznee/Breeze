@@ -12,7 +12,7 @@ import android.widget.Toast;
 import com.shaznee.breeze.R;
 import com.shaznee.breeze.adapters.pageadapters.SectionsPagerAdapter;
 import com.shaznee.breeze.fragments.WeatherFragment;
-import com.shaznee.breeze.preferences.LocationPreferenceProvider;
+import com.shaznee.breeze.providers.preferences.LocationPreferenceProvider;
 
 import org.json.JSONException;
 
@@ -48,11 +48,6 @@ public class MainActivity extends AppCompatActivity implements WeatherFragment.O
     @Override
     public void onFragmentInteraction() {
         Toast.makeText(this, "Call from fragment", Toast.LENGTH_SHORT).show();
-    }
-
-    @Override
-    public boolean onSearchRequested() {
-        return super.onSearchRequested();
     }
 
     protected void onCitiesLabelClick(View view) {

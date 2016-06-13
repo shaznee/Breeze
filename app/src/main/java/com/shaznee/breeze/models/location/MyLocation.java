@@ -1,4 +1,4 @@
-package com.shaznee.breeze.preferences;
+package com.shaznee.breeze.models.location;
 
 import android.os.Parcel;
 import android.os.Parcelable;

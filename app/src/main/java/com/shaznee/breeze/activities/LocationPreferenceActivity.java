@@ -7,11 +7,12 @@ import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.View;
 import android.widget.ListView;
+import android.widget.TextView;
 
 import com.shaznee.breeze.R;
 import com.shaznee.breeze.adapters.arrayadapters.PreferenceAdapter;
-import com.shaznee.breeze.preferences.LocationPreferenceProvider;
-import com.shaznee.breeze.preferences.MyLocation;
+import com.shaznee.breeze.providers.preferences.LocationPreferenceProvider;
+import com.shaznee.breeze.models.location.MyLocation;
 
 import org.json.JSONException;
 
@@ -28,6 +29,7 @@ public class LocationPreferenceActivity extends AppCompatActivity {
     private List<MyLocation> locations;
     private LocationPreferenceProvider locationPreferenceProvider;
     @BindView(R.id.preference_list) ListView preferenceList;
+    @BindView(android.R.id.empty) TextView emptyTextView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,6 +38,8 @@ public class LocationPreferenceActivity extends AppCompatActivity {
         Toolbar searchBar = (Toolbar) findViewById(R.id.action_bar);
         setSupportActionBar(searchBar);
         ButterKnife.bind(this);
+
+        preferenceList.setEmptyView(emptyTextView);
 
         locationPreferenceProvider = new LocationPreferenceProvider(this);
         try {

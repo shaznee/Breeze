@@ -64,6 +64,10 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.SearchView
         }
     }
 
+    public String getPlaceIDAt(int position) {
+        return selectedCities.get(position).getPlaceId();
+    }
+
     @Override
     public Filter getFilter() {
         return new Filter() {
@@ -74,7 +78,6 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.SearchView
                 if (constraint != null) {
                     selectedCities = getAutocomplete(constraint);
                     if (selectedCities != null) {
-                        // The API successfully returned results.
                         results.values = selectedCities;
                         results.count = selectedCities.size();
                     }
@@ -84,9 +87,7 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.SearchView
 
             @Override
             protected void publishResults(CharSequence constraint, FilterResults results) {
-                if (results != null && results.count > 0) {
-                    notifyDataSetChanged();
-                }
+                notifyDataSetChanged();
             }
 
             @Override
@@ -98,10 +99,6 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.SearchView
                 }
             }
         };
-    }
-
-    public String getItem(int position) {
-        return selectedCities.get(position).getFullText(null).toString();
     }
 
     private ArrayList<AutocompletePrediction> getAutocomplete(CharSequence constraint) {
@@ -119,8 +116,6 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.SearchView
                     .await(60, TimeUnit.SECONDS);
             final Status status = autocompletePredictions.getStatus();
             if (!status.isSuccess()) {
-//                Toast.makeText(getContext(), "Error contacting API: " + status.toString(),
-//                        Toast.LENGTH_SHORT).show();
                 Log.e(TAG, "Error getting autocomplete prediction API call: " + status.toString());
                 autocompletePredictions.release();
                 return null;
@@ -139,14 +134,17 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.SearchView
     public class SearchViewHolder extends RecyclerView.ViewHolder {
 
         TextView cityLabel;
+        TextView adminAreaLabel;
 
         public SearchViewHolder(View itemView) {
             super(itemView);
             cityLabel = (TextView) itemView.findViewById(R.id.cityLabel);
+            adminAreaLabel = (TextView) itemView.findViewById(R.id.adminAreaLabel);
         }
 
         public void bindPlace(AutocompletePrediction selectedCity) {
-            cityLabel.setText(selectedCity.getFullText(STYLE_BOLD));
+            cityLabel.setText(selectedCity.getPrimaryText(null));
+            adminAreaLabel.setText(selectedCity.getSecondaryText(null));
         }
     }
 

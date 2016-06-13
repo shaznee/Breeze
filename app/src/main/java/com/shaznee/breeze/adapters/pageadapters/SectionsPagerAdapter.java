@@ -5,7 +5,7 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 
 import com.shaznee.breeze.fragments.WeatherFragment;
-import com.shaznee.breeze.preferences.MyLocation;
+import com.shaznee.breeze.models.location.MyLocation;
 
 import java.util.List;
 

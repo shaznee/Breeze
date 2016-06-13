@@ -5,11 +5,10 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
-import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.shaznee.breeze.R;
-import com.shaznee.breeze.preferences.MyLocation;
+import com.shaznee.breeze.models.location.MyLocation;
 
 import java.util.List;
 

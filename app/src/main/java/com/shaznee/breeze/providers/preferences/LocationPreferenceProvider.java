@@ -1,7 +1,9 @@
-package com.shaznee.breeze.preferences;
+package com.shaznee.breeze.providers.preferences;
 
 import android.content.Context;
 import android.content.SharedPreferences;
+
+import com.shaznee.breeze.models.location.MyLocation;
 
 import org.json.JSONException;
 

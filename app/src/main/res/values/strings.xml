@@ -6,7 +6,7 @@
     <string name="no_network_string">Network is Unavailable</string>
     <string name="dialog_ok">OK</string>
     <string name="title_activity_daily">DailyActivity</string>
-    <string name="empty_list">No weather data to show ...</string>
+    <string name="empty_weather">No weather data to show ...</string>
     <string name="title_activity_hourly_forecast">HourlyForecast</string>
     <string name="title_activity_swipe">SwipeActivity</string>
     <string name="google_maps_key" templateMergeStrategy="preserve">AIzaSyB00w7eCqwIfDFeF2kZmjikY2PJgnAsaUA</string>
@@ -16,4 +16,5 @@
     <string name="string_more">MORE</string>
     <string name="string_add">ADD</string>
     <string name="string_cities">CITIES</string>
+    <string name="empty_preference">Add favorite locations</string>
 </resources>

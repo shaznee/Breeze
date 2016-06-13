@@ -14,7 +14,7 @@ import android.view.View;
 import com.shaznee.breeze.R;
 import com.shaznee.breeze.adapters.recycleradapters.SearchAdapter;
 import com.shaznee.breeze.listeners.SearchClickListener;
-import com.shaznee.breeze.location.LocationProvider;
+import com.shaznee.breeze.providers.location.LocationProvider;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -36,8 +36,8 @@ public class SearchAcitivty extends AppCompatActivity implements
         Toolbar searchBar = (Toolbar) findViewById(R.id.searchBar);
         setSupportActionBar(searchBar);
         ButterKnife.bind(this);
-        locationProvider = new LocationProvider(this, null);
 
+        locationProvider = new LocationProvider(this, null);
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(this);
         searchAdapter = new SearchAdapter(locationProvider.getGoogleApiClient());
         recyclerView.setAdapter(searchAdapter);
@@ -67,6 +67,7 @@ public class SearchAcitivty extends AppCompatActivity implements
         SearchManager searchManager = (SearchManager) getSystemService(SEARCH_SERVICE);
         searchView.setSearchableInfo(searchManager.getSearchableInfo(getComponentName()));
         searchView.setOnQueryTextListener(this);
+        searchView.setIconifiedByDefault(false);
         return super.onCreateOptionsMenu(menu);
     }
 
@@ -104,6 +105,6 @@ public class SearchAcitivty extends AppCompatActivity implements
 
     @Override
     public void onItemClick(View view, int position) {
-        publishResults(searchAdapter.getItem(position));
+        publishResults(searchAdapter.getPlaceIDAt(position));
     }
 }

@@ -3,7 +3,7 @@ package com.shaznee.breeze.weatherservice;
 import android.util.Log;
 
 import com.shaznee.breeze.weatherservice.api.WeatherAPI;
-import com.shaznee.breeze.models.Forecast;
+import com.shaznee.breeze.models.weather.Forecast;
 
 import okhttp3.OkHttpClient;
 import okhttp3.logging.HttpLoggingInterceptor;
@@ -49,12 +49,12 @@ public class ForecastClient {
         weatherAPI = retrofit.create(WeatherAPI.class);
     }
 
-    public void getForecast(double latitude, double longitude, final ForecastHandler forecastHandler) {
+    public void getForecast(double latitude, double longitude, final ForecastCallBack forecastCallBack) {
         weatherAPI.getForecast(apiKey, latitude, longitude).enqueue(new Callback<Forecast>() {
             @Override
             public void onResponse(Call<Forecast> call, Response<Forecast> response) {
                 if (response.isSuccessful()) {
-                    forecastHandler.successful(response.body());
+                    forecastCallBack.successful(response.body());
                 } else {
                     Log.e(TAG, "On response failure");
                 }
@@ -62,7 +62,7 @@ public class ForecastClient {
 
             @Override
             public void onFailure(Call<Forecast> call, Throwable t) {
-                forecastHandler.failure(t);
+                forecastCallBack.failure(t);
             }
         });
     }
