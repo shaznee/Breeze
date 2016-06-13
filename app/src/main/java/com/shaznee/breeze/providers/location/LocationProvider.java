@@ -17,6 +17,7 @@ import com.google.android.gms.common.api.ResultCallback;
 import com.google.android.gms.location.LocationListener;
 import com.google.android.gms.location.LocationRequest;
 import com.google.android.gms.location.LocationServices;
+import com.google.android.gms.location.places.Place;
 import com.google.android.gms.location.places.PlaceBuffer;
 import com.google.android.gms.location.places.Places;
 
@@ -124,7 +125,7 @@ public class LocationProvider extends LocationAddress implements GoogleApiClient
                         if (places.getStatus().isSuccess() && places.getCount() > 0) {
                             placeCallback.onPlaceFound(places.get(0));
                         } else {
-                            placeCallback.onPlaceNotFound(new Exception("Place not found"));
+                           Log.d(TAG, "Predicted Place not found");
                         }
                         places.release();
                     }

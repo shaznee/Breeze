@@ -27,11 +27,11 @@ public class LocationPreferenceProvider {
 
     public List<MyLocation> findAll() throws JSONException {
 
-        Map<String, ?> locationsMap = notePrefs.getAll();
-        SortedSet<String> cities = new TreeSet<>(locationsMap.keySet());
+        Map<String, ?> placesMap = notePrefs.getAll();
+        SortedSet<String> places = new TreeSet<>(placesMap.keySet());
         List<MyLocation> locations = new ArrayList<>();
-        for (String city : cities) {
-            MyLocation myLocation = MyLocation.fromJSON(city,(String) locationsMap.get(city));
+        for (String place : places) {
+            MyLocation myLocation = MyLocation.fromJSON(place,(String) placesMap.get(place));
             locations.add(myLocation);
         }
         return locations;
@@ -39,16 +39,16 @@ public class LocationPreferenceProvider {
 
     public boolean update(MyLocation location) throws JSONException {
         SharedPreferences.Editor editor = notePrefs.edit();
-        editor.putString(location.getCityName(), location.toJSON());
+        editor.putString(location.getPrimaryText(), location.toJSON());
         editor.commit();
         return true;
     }
 
     public boolean remove(MyLocation location) {
 
-        if (notePrefs.contains(location.getCityName())) {
+        if (notePrefs.contains(location.getPrimaryText())) {
             SharedPreferences.Editor editor = notePrefs.edit();
-            editor.remove(location.getCityName());
+            editor.remove(location.getPrimaryText());
             editor.commit();
         }
         return true;

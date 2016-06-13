@@ -46,7 +46,7 @@ public class SectionsPagerAdapter extends FragmentPagerAdapter {
             case 0:
                 return "Current Location";
             default:
-                return locations.get(position).getCityName();
+                return locations.get(position).getPrimaryText();
         }
 
     }

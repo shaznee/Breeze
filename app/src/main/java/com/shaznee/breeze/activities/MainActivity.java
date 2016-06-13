@@ -12,6 +12,7 @@ import android.widget.Toast;
 import com.shaznee.breeze.R;
 import com.shaznee.breeze.adapters.pageadapters.SectionsPagerAdapter;
 import com.shaznee.breeze.fragments.WeatherFragment;
+import com.shaznee.breeze.models.location.MyLocation;
 import com.shaznee.breeze.providers.preferences.LocationPreferenceProvider;
 
 import org.json.JSONException;
@@ -46,6 +47,16 @@ public class MainActivity extends AppCompatActivity implements WeatherFragment.O
     }
 
     @Override
+    protected void onResume() {
+        super.onResume();
+        try {
+            mSectionsPagerAdapter.addLocations(locationPreferenceProvider.findAll());
+        } catch (JSONException e) {
+            Log.d(TAG, "JSONException : ", e);
+        }
+    }
+
+    @Override
     public void onFragmentInteraction() {
         Toast.makeText(this, "Call from fragment", Toast.LENGTH_SHORT).show();
     }
@@ -65,8 +76,8 @@ public class MainActivity extends AppCompatActivity implements WeatherFragment.O
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         if (resultCode == RESULT_OK && requestCode == SEARCH_REQUEST) {
-            String result = data.getStringExtra(SearchAcitivty.SEARCH_RESULT);
-            Toast.makeText(this, result, Toast.LENGTH_LONG).show();
+            MyLocation location = data.getParcelableExtra(SearchAcitivty.SEARCH_RESULT);
+            Toast.makeText(this, location.getPrimaryText(), Toast.LENGTH_LONG).show();
         }
     }
 }

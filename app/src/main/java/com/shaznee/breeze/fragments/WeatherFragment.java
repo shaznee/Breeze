@@ -115,7 +115,7 @@ public class WeatherFragment extends Fragment implements ForecastCallBack, Locat
     public void onStart() {
         super.onStart();
         if (pref.equals(SAVED_LOCATION)) {
-            handleLocation(location.getCityName(), location.getLatitude(), location.getLongitude());
+            handleLocation(location.getPrimaryText(), location.getLatitude(), location.getLongitude());
         } else if (pref.equals(CURRENT_LOCATION)) {
             locationProvider = new LocationProvider(getContext(), this);
             locationProvider.connect();

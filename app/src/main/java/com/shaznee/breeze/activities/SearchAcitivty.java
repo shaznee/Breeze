@@ -8,13 +8,18 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.SearchView;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.Menu;
 import android.view.View;
 
+import com.google.android.gms.location.places.Place;
 import com.shaznee.breeze.R;
 import com.shaznee.breeze.adapters.recycleradapters.SearchAdapter;
 import com.shaznee.breeze.listeners.SearchClickListener;
+import com.shaznee.breeze.models.location.MyLocation;
+import com.shaznee.breeze.models.location.PredictedPlace;
 import com.shaznee.breeze.providers.location.LocationProvider;
+import com.shaznee.breeze.providers.location.PlaceCallback;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -23,6 +28,7 @@ public class SearchAcitivty extends AppCompatActivity implements
         SearchView.OnQueryTextListener, SearchClickListener.OnItemClickListener {
 
     public static final String SEARCH_RESULT = "SEARCH_RESULT";
+    private static final String TAG = SearchAcitivty.class.getSimpleName();
 
     @BindView(R.id.recyclerView) RecyclerView recyclerView;
 
@@ -96,15 +102,28 @@ public class SearchAcitivty extends AppCompatActivity implements
         return true;
     }
 
-    private void publishResults(String place) {
-        Intent intent = new Intent();
-        intent.putExtra(SEARCH_RESULT, place);
-        setResult(RESULT_OK, intent);
-        finish();
+    private void publishResults(final PredictedPlace predictedPlace) {
+
+        locationProvider.getPlaceById(predictedPlace.getPlaceId(), new PlaceCallback() {
+            @Override
+            public void onPlaceFound(Place place) {
+                MyLocation location = new MyLocation(predictedPlace.getPlaceId(),
+                        place.getLatLng().latitude,
+                        place.getLatLng().longitude,
+                        predictedPlace.getPrimaryText(),
+                        predictedPlace.getSecondaryText());
+
+                Intent intent = new Intent();
+                intent.putExtra(SEARCH_RESULT, location);
+                setResult(RESULT_OK, intent);
+                finish();
+            }
+        });
     }
 
     @Override
     public void onItemClick(View view, int position) {
         publishResults(searchAdapter.getPlaceIDAt(position));
     }
+
 }

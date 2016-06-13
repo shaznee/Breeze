@@ -51,7 +51,7 @@ public class PreferenceAdapter extends BaseAdapter {
         } else {
             viewHolder = (ViewHolder) convertView.getTag();
         }
-        viewHolder.cityLabel.setText(locations.get(position).getCityName());
+        viewHolder.cityLabel.setText(locations.get(position).getPrimaryText());
         return convertView;
     }
 

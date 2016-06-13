@@ -23,6 +23,7 @@ import com.google.android.gms.location.places.Places;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.LatLngBounds;
 import com.shaznee.breeze.R;
+import com.shaznee.breeze.models.location.PredictedPlace;
 
 import java.util.ArrayList;
 import java.util.concurrent.TimeUnit;
@@ -64,8 +65,11 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.SearchView
         }
     }
 
-    public String getPlaceIDAt(int position) {
-        return selectedCities.get(position).getPlaceId();
+    public PredictedPlace getPlaceIDAt(int position) {
+        AutocompletePrediction prediction = selectedCities.get(position);
+        return new PredictedPlace(prediction.getPlaceId(),
+                prediction.getPrimaryText(null).toString(),
+                prediction.getSecondaryText(null).toString());
     }
 
     @Override
