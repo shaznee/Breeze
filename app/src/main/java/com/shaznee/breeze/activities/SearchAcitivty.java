@@ -3,6 +3,7 @@ package com.shaznee.breeze.activities;
 import android.app.SearchManager;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -10,6 +11,7 @@ import android.support.v7.widget.SearchView;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 
 import com.google.android.gms.location.places.Place;
@@ -43,6 +45,10 @@ public class SearchAcitivty extends AppCompatActivity implements
         setSupportActionBar(searchBar);
         ButterKnife.bind(this);
 
+        ActionBar actionBar = getSupportActionBar();
+        actionBar.setDisplayHomeAsUpEnabled(true);
+        actionBar.setDisplayShowTitleEnabled(false);
+
         locationProvider = new LocationProvider(this, null);
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(this);
         searchAdapter = new SearchAdapter(locationProvider.getGoogleApiClient());
@@ -75,6 +81,17 @@ public class SearchAcitivty extends AppCompatActivity implements
         searchView.setOnQueryTextListener(this);
         searchView.setIconifiedByDefault(false);
         return super.onCreateOptionsMenu(menu);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        int itemId = item.getItemId();
+        switch (itemId) {
+            case android.R.id.home:
+                finish();
+                break;
+        }
+        return super.onOptionsItemSelected(item);
     }
 
     @Override

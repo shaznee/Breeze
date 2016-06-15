@@ -46,16 +46,24 @@ public class PreferenceAdapter extends BaseAdapter {
         if (convertView == null) {
             convertView = LayoutInflater.from(context).inflate(R.layout.preference_list_item, null);
             viewHolder = new ViewHolder();
-            viewHolder.cityLabel = (TextView) convertView.findViewById(R.id.cityLabel);
+            viewHolder.primaryTextLabel = (TextView) convertView.findViewById(R.id.primaryTextLabel);
+            viewHolder.secondaryTextLabel = (TextView) convertView.findViewById(R.id.secondaryTextLabel);
             convertView.setTag(viewHolder);
         } else {
             viewHolder = (ViewHolder) convertView.getTag();
         }
-        viewHolder.cityLabel.setText(locations.get(position).getPrimaryText());
+        MyLocation location = locations.get(position);
+        viewHolder.primaryTextLabel.setText(location.getPrimaryText());
+        viewHolder.secondaryTextLabel.setText(location.getSecondaryText());
         return convertView;
     }
 
+    public void addLocation(MyLocation location) {
+        locations.add(location);
+        notifyDataSetChanged();
+    }
+
     private static class ViewHolder {
-        TextView cityLabel;
+        TextView primaryTextLabel, secondaryTextLabel;
     }
 }

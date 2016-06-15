@@ -1,26 +1,23 @@
 <?xml version="1.0" encoding="utf-8"?>
-<menu
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    tools:context=".activities.MainActivity">
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <item
         android:id="@+id/mnu_cities"
         android:orderInCategory="100"
         app:showAsAction="always"
-        android:title="CITIES"/>
+        android:title="@string/string_cities"/>
 
     <item
         android:id="@+id/mnu_add"
         android:orderInCategory="100"
         app:showAsAction="always"
-        android:title="ADD"/>
+        android:title="@string/string_add"/>
 
     <item
         android:id="@+id/mnu_more"
         android:orderInCategory="100"
         app:showAsAction="always"
-        android:title="MORE"/>
+        android:title="@string/string_more"/>
 
 </menu>

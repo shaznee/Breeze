@@ -137,18 +137,18 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.SearchView
 
     public class SearchViewHolder extends RecyclerView.ViewHolder {
 
-        TextView cityLabel;
-        TextView adminAreaLabel;
+        TextView primaryTextLabel;
+        TextView secondaryTextLabel;
 
         public SearchViewHolder(View itemView) {
             super(itemView);
-            cityLabel = (TextView) itemView.findViewById(R.id.cityLabel);
-            adminAreaLabel = (TextView) itemView.findViewById(R.id.adminAreaLabel);
+            primaryTextLabel = (TextView) itemView.findViewById(R.id.primaryTextLabel);
+            secondaryTextLabel = (TextView) itemView.findViewById(R.id.secondaryTextLabel);
         }
 
         public void bindPlace(AutocompletePrediction selectedCity) {
-            cityLabel.setText(selectedCity.getPrimaryText(null));
-            adminAreaLabel.setText(selectedCity.getSecondaryText(null));
+            primaryTextLabel.setText(selectedCity.getPrimaryText(null));
+            secondaryTextLabel.setText(selectedCity.getSecondaryText(null));
         }
     }
 

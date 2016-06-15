@@ -8,12 +8,12 @@
         android:id="@+id/mnu_add"
         android:orderInCategory="100"
         app:showAsAction="always"
-        android:title="ADD"/>
+        android:title="@string/string_add"/>
 
     <item
         android:id="@+id/mnu_more"
         android:orderInCategory="100"
         app:showAsAction="always"
-        android:title="MORE"/>
+        android:title="@string/string_more"/>
 
 </menu>

@@ -52,8 +52,16 @@ public class SectionsPagerAdapter extends FragmentPagerAdapter {
     }
 
     public void addLocations(List<MyLocation> locations) {
-        locations.clear();
-        locations.addAll(locations);
+        if (locations != null && locations.size() > 0) {
+            locations.clear();
+            locations.addAll(locations);
+            notifyDataSetChanged();
+        }
+
+    }
+
+    public void addLocation(MyLocation location) {
+        locations.add(location);
         notifyDataSetChanged();
     }
 }
