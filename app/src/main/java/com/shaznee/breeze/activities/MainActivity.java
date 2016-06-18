@@ -3,13 +3,11 @@ package com.shaznee.breeze.activities;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.view.ViewPager;
-import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
 import android.widget.Toast;
 
 import com.shaznee.breeze.R;
@@ -66,7 +64,7 @@ public class MainActivity extends AppCompatActivity implements WeatherFragment.O
     @Override
     protected void onResume() {
         super.onResume();
-        locationPreferenceProvider = new LocationPreferenceProvider(this);
+        locationPreferenceProvider = new LocationPreferenceProvider(getApplicationContext());
         try {
             mSectionsPagerAdapter = new SectionsPagerAdapter(getSupportFragmentManager(), locationPreferenceProvider.findAll());
         } catch (JSONException e) {

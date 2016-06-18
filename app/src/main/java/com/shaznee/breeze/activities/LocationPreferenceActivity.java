@@ -8,15 +8,14 @@ import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.shaznee.breeze.R;
 import com.shaznee.breeze.adapters.arrayadapters.PreferenceAdapter;
-import com.shaznee.breeze.providers.preferences.LocationPreferenceProvider;
 import com.shaznee.breeze.models.location.MyLocation;
+import com.shaznee.breeze.providers.preferences.LocationPreferenceProvider;
 
 import org.json.JSONException;
 
@@ -50,7 +49,7 @@ public class LocationPreferenceActivity extends AppCompatActivity {
 
         preferenceList.setEmptyView(emptyTextView);
 
-        locationPreferenceProvider = new LocationPreferenceProvider(this);
+        locationPreferenceProvider = new LocationPreferenceProvider(getApplicationContext());
         try {
             refreshDisplay();
         } catch (JSONException e) {
