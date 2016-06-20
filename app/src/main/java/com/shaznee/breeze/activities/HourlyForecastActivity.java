@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.widget.TextView;
 
 import com.shaznee.breeze.R;
 import com.shaznee.breeze.adapters.recycleradapters.HourAdapter;
@@ -17,6 +18,7 @@ import butterknife.ButterKnife;
 public class HourlyForecastActivity extends Activity {
 
     @BindView(R.id.recyclerView) RecyclerView recyclerView;
+    @BindView(R.id.locationLabel) TextView locationLabel;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -26,6 +28,8 @@ public class HourlyForecastActivity extends Activity {
 
         Intent intent = getIntent();
         Forecast forecast = intent.getParcelableExtra(WeatherFragment.FORECAST);
+        String cityName = intent.getStringExtra(WeatherFragment.CITY_NAME);
+        locationLabel.setText(cityName);
 
         HourAdapter hourAdapter = new HourAdapter(forecast);
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(this);

@@ -98,7 +98,7 @@ public class MainActivity extends AppCompatActivity implements WeatherFragment.O
             try {
                 locationPreferenceProvider.update(location);
                 mSectionsPagerAdapter.addLocation(location);
-                Toast.makeText(this, location.getPrimaryText() + "registered", Toast.LENGTH_LONG).show();
+                Toast.makeText(this, location.getPrimaryText() + " registered", Toast.LENGTH_LONG).show();
             } catch (JSONException e) {
                 Log.d(TAG, "JSONException : ", e);
             }
