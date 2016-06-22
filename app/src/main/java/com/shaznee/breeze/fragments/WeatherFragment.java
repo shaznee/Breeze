@@ -24,6 +24,7 @@ import com.shaznee.breeze.providers.location.LocationChangeCallBack;
 import com.shaznee.breeze.providers.location.LocationProvider;
 import com.shaznee.breeze.models.weather.Forecast;
 import com.shaznee.breeze.models.location.MyLocation;
+import com.shaznee.breeze.providers.preferences.UnitsPreference;
 import com.shaznee.breeze.weatherservice.ForecastClient;
 import com.shaznee.breeze.weatherservice.ForecastCallBack;
 
@@ -38,6 +39,7 @@ public class WeatherFragment extends Fragment implements ForecastCallBack, Locat
     @BindView(R.id.timeLabel) TextView timeLabel;
     @BindView(R.id.locationLabel) TextView locationLabel;
     @BindView(R.id.temperatureLabel) TextView temperatureLabel;
+    @BindView(R.id.unitLabel) TextView unitLabel;
     @BindView(R.id.humidityValue) TextView humidityValue;
     @BindView(R.id.precipValue) TextView precipValue;
     @BindView(R.id.summaryLabel) TextView summaryLabel;
@@ -46,8 +48,9 @@ public class WeatherFragment extends Fragment implements ForecastCallBack, Locat
     @BindView(R.id.progressBar) ProgressBar progressBar;
 
     public static final String FORECAST = "FORECAST";
-    private static final String LOCATION = "LOCATION";
     public static final String CITY_NAME = "CITY_NAME";
+
+    private static final String LOCATION = "LOCATION";
 
     private static final String LOCATION_PREFERENCE = "PREFERENCE";
     private static final String CURRENT_LOCATION = "CURRENT";
@@ -57,6 +60,7 @@ public class WeatherFragment extends Fragment implements ForecastCallBack, Locat
     private LocationProvider locationProvider;
     private Forecast forecast;
     private MyLocation location;
+    private UnitsPreference unitsPreference;
 
     private double latitude;
     private double longitude;
@@ -97,6 +101,18 @@ public class WeatherFragment extends Fragment implements ForecastCallBack, Locat
         View view = inflater.inflate(R.layout.fragment_weather, container, false);
         ButterKnife.bind(this, view);
         progressBar.setVisibility(View.INVISIBLE);
+        unitLabel.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(unitsPreference.isFarenheight()) {
+                    unitsPreference.setFarenheight(false);
+                    updateDisplay();
+                } else {
+                    unitsPreference.setFarenheight(true);
+                    updateDisplay();
+                }
+            }
+        });
         return view;
     }
 
@@ -109,6 +125,7 @@ public class WeatherFragment extends Fragment implements ForecastCallBack, Locat
             throw new RuntimeException(context.toString()
                     + " must implement OnFragmentInteractionListener");
         }
+        unitsPreference = new UnitsPreference(context);
     }
 
     @Override
@@ -145,7 +162,6 @@ public class WeatherFragment extends Fragment implements ForecastCallBack, Locat
         if (pref.equals(CURRENT_LOCATION)){
             locationProvider.disconnect();
         }
-
     }
 
     @Override
@@ -174,8 +190,14 @@ public class WeatherFragment extends Fragment implements ForecastCallBack, Locat
 
     private void updateDisplay() {
         locationLabel.setText(cityName);
-        temperatureLabel.setText(forecast.getCurrently().getTemperature() + "°");
-        timeLabel.setText("At " + forecast.getFormattedTime() + " it will be");
+        if(unitsPreference.isFarenheight()) {
+            temperatureLabel.setText(forecast.getCurrently().getTemperature() + "°");
+            unitLabel.setText("F");
+        } else {
+            temperatureLabel.setText(forecast.getTemperatureCelcius(forecast.getCurrently().getTemperature()) + "°");
+            unitLabel.setText("C");
+        }
+        timeLabel.setText(forecast.getFormattedTime());
         humidityValue.setText(forecast.getCurrently().getHumidity() + "");
         precipValue.setText(forecast.getCurrently().getPrecipProbability() + "%");
         summaryLabel.setText(forecast.getCurrently().getSummary());

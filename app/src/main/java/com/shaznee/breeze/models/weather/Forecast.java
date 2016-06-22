@@ -38,7 +38,7 @@ public class Forecast implements Parcelable {
 
     @JsonIgnore
     public String getFormattedTime () {
-        SimpleDateFormat dateFormat = new SimpleDateFormat("hh:mm a");
+        SimpleDateFormat dateFormat = new SimpleDateFormat("EEE, MMM d hh:mm a");
         dateFormat.setTimeZone(TimeZone.getTimeZone(getTimezone()));
         return dateFormat.format(new Date(currently.getTime() * 1000));
     }
@@ -55,6 +55,10 @@ public class Forecast implements Parcelable {
         SimpleDateFormat dateFormat = new SimpleDateFormat("h a");
         dateFormat.setTimeZone(TimeZone.getTimeZone(getTimezone()));
         return dateFormat.format(new Date(time * 1000));
+    }
+
+    public int getTemperatureCelcius(double temperatureFarenheit) {
+        return (int) Math.round((temperatureFarenheit - 32) * 5/9);
     }
 
     public Currently getCurrently() {
