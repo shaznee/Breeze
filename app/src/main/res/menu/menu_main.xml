@@ -14,10 +14,10 @@
         app:showAsAction="always"
         android:title="@string/string_add"/>
 
-    <item
-        android:id="@+id/mnu_more"
-        android:orderInCategory="100"
-        app:showAsAction="always"
-        android:title="@string/string_more"/>
+    <!--<item-->
+        <!--android:id="@+id/mnu_more"-->
+        <!--android:orderInCategory="100"-->
+        <!--app:showAsAction="always"-->
+        <!--android:title="@string/string_more"/>-->
 
 </menu>

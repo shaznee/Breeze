@@ -78,9 +78,9 @@ public class LocationPreferenceActivity extends AppCompatActivity {
             case R.id.mnu_add:
                 onMenuAddClick();
                 break;
-            case R.id.mnu_more:
-                onMenuMoreClick();
-                break;
+//            case R.id.mnu_more:
+//                onMenuMoreClick();
+//                break;
         }
         return super.onOptionsItemSelected(item);
     }

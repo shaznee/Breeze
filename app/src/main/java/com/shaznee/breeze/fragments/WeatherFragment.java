@@ -96,7 +96,6 @@ public class WeatherFragment extends Fragment implements ForecastCallBack, Locat
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_weather, container, false);
         ButterKnife.bind(this, view);
-
         progressBar.setVisibility(View.INVISIBLE);
         return view;
     }
@@ -175,7 +174,7 @@ public class WeatherFragment extends Fragment implements ForecastCallBack, Locat
 
     private void updateDisplay() {
         locationLabel.setText(cityName);
-        temperatureLabel.setText(forecast.getCurrently().getTemperature() + "");
+        temperatureLabel.setText(forecast.getCurrently().getTemperature() + "°");
         timeLabel.setText("At " + forecast.getFormattedTime() + " it will be");
         humidityValue.setText(forecast.getCurrently().getHumidity() + "");
         precipValue.setText(forecast.getCurrently().getPrecipProbability() + "%");

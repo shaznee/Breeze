@@ -54,9 +54,9 @@ public class MainActivity extends AppCompatActivity implements WeatherFragment.O
             case R.id.mnu_add:
                 onMenuAddClick();
                 break;
-            case R.id.mnu_more:
-                onMenuMoreClick();
-                break;
+//            case R.id.mnu_more:
+//                onMenuMoreClick();
+//                break;
         }
         return super.onOptionsItemSelected(item);
     }
