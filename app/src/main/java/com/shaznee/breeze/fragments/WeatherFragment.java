@@ -106,11 +106,10 @@ public class WeatherFragment extends Fragment implements ForecastCallBack, Locat
             public void onClick(View v) {
                 if(unitsPreference.isFarenheight()) {
                     unitsPreference.setFarenheight(false);
-                    updateDisplay();
                 } else {
                     unitsPreference.setFarenheight(true);
-                    updateDisplay();
                 }
+                updateDisplay();
             }
         });
         return view;

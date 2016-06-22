@@ -9,7 +9,7 @@
     <string name="empty_weather">No weather data to show ...</string>
     <string name="title_activity_hourly_forecast">HourlyForecast</string>
     <string name="title_activity_swipe">SwipeActivity</string>
-    <string name="google_maps_key" templateMergeStrategy="preserve">AIzaSyB00w7eCqwIfDFeF2kZmjikY2PJgnAsaUA</string>
+    <string name="google_maps_key" templateMergeStrategy="preserve">AIzaSyCQ9wy9gHQfkPGybdw7FD5B8sTlyxpOJbo</string>
     <string name="title_activity_location_preference">Location Preference</string>
     <string name="search_hint">Search Cities</string>
     <string name="search">SEARCH</string>
