@@ -6,8 +6,11 @@ import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
+import android.view.ContextMenu;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -29,6 +32,8 @@ public class LocationPreferenceActivity extends AppCompatActivity {
     private static final String TAG = LocationPreferenceActivity.class.getSimpleName();
 
     private static final int SEARCH_REQUEST = 1001;
+    private static final int LOCATION_DELETE_ID = 1002;
+    private int currentLocationId;
     private List<MyLocation> locations;
     private LocationPreferenceProvider locationPreferenceProvider;
     private PreferenceAdapter adapter;
@@ -47,6 +52,8 @@ public class LocationPreferenceActivity extends AppCompatActivity {
         actionBar.setDisplayShowTitleEnabled(false);
         actionBar.setDisplayHomeAsUpEnabled(true);
 
+        registerForContextMenu(preferenceList);
+
         preferenceList.setEmptyView(emptyTextView);
 
         locationPreferenceProvider = new LocationPreferenceProvider(getApplicationContext());
@@ -55,6 +62,7 @@ public class LocationPreferenceActivity extends AppCompatActivity {
         } catch (JSONException e) {
             Log.d(TAG, "JSONException : ", e);
         }
+
     }
 
     @Override
@@ -75,6 +83,27 @@ public class LocationPreferenceActivity extends AppCompatActivity {
                 break;
         }
         return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    public void onCreateContextMenu(ContextMenu menu, View v, ContextMenu.ContextMenuInfo menuInfo) {
+        AdapterView.AdapterContextMenuInfo info = (AdapterView.AdapterContextMenuInfo) menuInfo;
+        currentLocationId = (int) info.id;
+        menu.add(0, LOCATION_DELETE_ID, 0, R.string.delete);
+    }
+
+    @Override
+    public boolean onContextItemSelected(MenuItem item) {
+        if (item.getItemId() == LOCATION_DELETE_ID) {
+            try {
+                MyLocation location = locations.get(currentLocationId);
+                locationPreferenceProvider.remove(location);
+                refreshDisplay();
+            } catch (JSONException e) {
+                Log.d(TAG, "JSONException : ", e);
+            }
+        }
+        return super.onContextItemSelected(item);
     }
 
     private void refreshDisplay() throws JSONException {

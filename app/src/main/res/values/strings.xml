@@ -17,4 +17,5 @@
     <string name="string_add">ADD</string>
     <string name="string_cities">CITIES</string>
     <string name="empty_preference">Add favorite locations</string>
+    <string name="delete">DELETE</string>
 </resources>
