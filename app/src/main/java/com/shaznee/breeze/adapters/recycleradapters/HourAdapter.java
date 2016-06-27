@@ -17,9 +17,11 @@ import com.shaznee.breeze.models.weather.Forecast;
 public class HourAdapter extends RecyclerView.Adapter<HourAdapter.HourViewHolder> {
 
     private Forecast forecast;
+    private CharSequence unitPref;
 
-    public HourAdapter(Forecast forecast) {
+    public HourAdapter(Forecast forecast, CharSequence unitPref) {
         this.forecast = forecast;
+        this.unitPref = unitPref;
     }
 
     @Override
@@ -58,7 +60,7 @@ public class HourAdapter extends RecyclerView.Adapter<HourAdapter.HourViewHolder
             Data data = forecast.getHourly().getData().get(position);
             timeLabel.setText(forecast.getHour(data.getTime()));
             summaryLabel.setText(data.getSummary());
-            temperatureLabel.setText(data.getTemperature() + "");
+            temperatureLabel.setText(data.getTemperature() + "°" + unitPref);
             iconImageView.setImageResource(data.getIconId());
         }
     }

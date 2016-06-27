@@ -11,14 +11,17 @@
     tools:context=".activities.DailyForecastActvity"
     android:background="@drawable/bg_gradient">
 
+    <include layout="@layout/action_bar"
+        android:id="@+id/actionBar"/>
+
     <ListView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:id="@android:id/list"
+        android:id="@+id/weeklyForecastList"
         android:layout_centerVertical="true"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
-        android:layout_below="@+id/thisWeekLabel"
+        android:layout_below="@+id/actionBar"
         android:layout_above="@+id/locationLabel"
         android:layout_marginTop="8dp"
         android:layout_marginBottom="8dp"
@@ -29,20 +32,20 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/empty_weather"
-        android:id="@android:id/empty"
+        android:id="@+id/emptyTextView"
         android:layout_centerVertical="true"
         android:layout_centerHorizontal="true" />
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="This Week&apos;s Weather"
-        android:id="@+id/thisWeekLabel"
-        android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true"
-        android:textColor="#ffffff"
-        android:textSize="30sp"
-        android:layout_marginTop="16dp" />
+    <!--<TextView-->
+        <!--android:layout_width="wrap_content"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:text="@string/this_week_label"-->
+        <!--android:id="@+id/thisWeekLabel"-->
+        <!--android:layout_alignParentTop="true"-->
+        <!--android:layout_centerHorizontal="true"-->
+        <!--android:textColor="#ffffff"-->
+        <!--android:textSize="30sp"-->
+        <!--android:layout_marginTop="16dp" />-->
 
     <TextView
         android:layout_width="wrap_content"

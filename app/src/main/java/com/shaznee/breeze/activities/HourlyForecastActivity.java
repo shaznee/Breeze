@@ -1,10 +1,13 @@
 package com.shaznee.breeze.activities;
 
-import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v7.app.ActionBar;
+import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.Toolbar;
+import android.view.MenuItem;
 import android.widget.TextView;
 
 import com.shaznee.breeze.R;
@@ -15,7 +18,7 @@ import com.shaznee.breeze.models.weather.Forecast;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-public class HourlyForecastActivity extends Activity {
+public class HourlyForecastActivity extends AppCompatActivity {
 
     @BindView(R.id.recyclerView) RecyclerView recyclerView;
     @BindView(R.id.locationLabel) TextView locationLabel;
@@ -24,14 +27,21 @@ public class HourlyForecastActivity extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_hourly_forecast);
+        Toolbar searchBar = (Toolbar) findViewById(R.id.actionBar);
+        setSupportActionBar(searchBar);
         ButterKnife.bind(this);
+
+        ActionBar actionBar = getSupportActionBar();
+        actionBar.setDisplayHomeAsUpEnabled(true);
+        actionBar.setTitle(getString(R.string.hourly_label));
 
         Intent intent = getIntent();
         Forecast forecast = intent.getParcelableExtra(WeatherFragment.FORECAST);
         String cityName = intent.getStringExtra(WeatherFragment.CITY_NAME);
         locationLabel.setText(cityName);
+        CharSequence unitPref = intent.getCharSequenceExtra(WeatherFragment.UNIT_PREF);
 
-        HourAdapter hourAdapter = new HourAdapter(forecast);
+        HourAdapter hourAdapter = new HourAdapter(forecast, unitPref);
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(this);
 
         recyclerView.setAdapter(hourAdapter);
@@ -39,6 +49,17 @@ public class HourlyForecastActivity extends Activity {
 
         recyclerView.setHasFixedSize(true);
 
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        int itemId = item.getItemId();
+        switch (itemId) {
+            case android.R.id.home:
+                finish();
+                break;
+        }
+        return super.onOptionsItemSelected(item);
     }
 
 }

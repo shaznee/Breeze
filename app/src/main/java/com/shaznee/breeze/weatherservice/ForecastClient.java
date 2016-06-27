@@ -2,11 +2,9 @@ package com.shaznee.breeze.weatherservice;
 
 import android.util.Log;
 
-import com.shaznee.breeze.weatherservice.api.WeatherAPI;
 import com.shaznee.breeze.models.weather.Forecast;
+import com.shaznee.breeze.weatherservice.api.WeatherAPI;
 
-import okhttp3.OkHttpClient;
-import okhttp3.logging.HttpLoggingInterceptor;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -36,13 +34,8 @@ public class ForecastClient {
 
     private ForecastClient() {
 
-        OkHttpClient client = new OkHttpClient.Builder()
-                .addInterceptor(new HttpLoggingInterceptor().setLevel(HttpLoggingInterceptor.Level.BODY))
-                .build();
-
         Retrofit retrofit = new Retrofit.Builder()
                 .baseUrl(BASE_URL)
-                .client(client)
                 .addConverterFactory(JacksonConverterFactory.create())
                 .build();
 

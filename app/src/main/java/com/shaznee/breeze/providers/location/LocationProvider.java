@@ -3,6 +3,8 @@ package com.shaznee.breeze.providers.location;
 import android.Manifest;
 import android.content.Context;
 import android.content.pm.PackageManager;
+import android.location.Address;
+import android.location.Geocoder;
 import android.location.Location;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -21,27 +23,34 @@ import com.google.android.gms.location.places.PlaceBuffer;
 import com.google.android.gms.location.places.Places;
 
 import java.io.IOException;
+import java.util.List;
+import java.util.Locale;
 
 /**
  * Created by Shaznee on 22-May-16.
  */
-public class LocationProvider extends LocationAddress implements GoogleApiClient.ConnectionCallbacks,
+public class LocationProvider implements GoogleApiClient.ConnectionCallbacks,
         GoogleApiClient.OnConnectionFailedListener, LocationListener {
 
     private static final String TAG = LocationProvider.class.getSimpleName();
 
+    private Context context;
+
     private LocationChangeCallBack locationChangeCallBack;
+    private Geocoder geocoder;
     private GoogleApiClient googleApiClient;
     private LocationRequest locationRequest;
 
     public LocationProvider(Context context, LocationChangeCallBack callback) {
-        super(context);
+        this.context = context;
         this.googleApiClient = new GoogleApiClient.Builder(context)
                 .addConnectionCallbacks(this)
                 .addOnConnectionFailedListener(this)
                 .addApi(LocationServices.API)
                 .addApi(Places.GEO_DATA_API)
                 .build();
+
+        geocoder = new Geocoder(context, Locale.getDefault());
 
         this.locationChangeCallBack = callback;
 
@@ -129,6 +138,13 @@ public class LocationProvider extends LocationAddress implements GoogleApiClient
                         places.release();
                     }
                 });
+    }
+
+    private String getCityName(double latitude, double longitude) throws IOException {
+        StringBuilder builder = new StringBuilder();
+        List<Address> address = geocoder.getFromLocation(latitude, longitude, 1);
+        builder.append(address.get(0).getLocality());
+        return builder.toString();
     }
 
 }

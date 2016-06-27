@@ -49,9 +49,9 @@ public class WeatherFragment extends Fragment implements ForecastCallBack, Locat
 
     public static final String FORECAST = "FORECAST";
     public static final String CITY_NAME = "CITY_NAME";
+    public static final String UNIT_PREF = "UNIT_PREF";
 
     private static final String LOCATION = "LOCATION";
-
     private static final String LOCATION_PREFERENCE = "PREFERENCE";
     private static final String CURRENT_LOCATION = "CURRENT";
     private static final String SAVED_LOCATION = "SAVED";
@@ -220,6 +220,7 @@ public class WeatherFragment extends Fragment implements ForecastCallBack, Locat
         Intent intent = new Intent(getActivity(), DailyForecastActvity.class);
         intent.putExtra(FORECAST, forecast);
         intent.putExtra(CITY_NAME, cityName);
+        intent.putExtra(UNIT_PREF, unitLabel.getText());
         startActivity(intent);
     }
 
@@ -227,8 +228,8 @@ public class WeatherFragment extends Fragment implements ForecastCallBack, Locat
     protected void startHourlyActivity(View view) {
         Intent intent = new Intent(getActivity(), HourlyForecastActivity.class);
         intent.putExtra(FORECAST, forecast);
-        intent.putExtra(FORECAST, forecast);
         intent.putExtra(CITY_NAME, cityName);
+        intent.putExtra(UNIT_PREF, unitLabel.getText());
         startActivity(intent);
     }
 

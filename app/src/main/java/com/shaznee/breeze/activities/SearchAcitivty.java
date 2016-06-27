@@ -79,6 +79,8 @@ public class SearchAcitivty extends AppCompatActivity implements
         searchView.setSearchableInfo(searchManager.getSearchableInfo(getComponentName()));
         searchView.setOnQueryTextListener(this);
         searchView.setIconifiedByDefault(false);
+        searchView.setFocusable(true);
+        searchView.requestFocus();
         return super.onCreateOptionsMenu(menu);
     }
 

@@ -19,10 +19,12 @@ public class DayAdapter extends BaseAdapter {
 
     private Context context;
     private Forecast forecast;
+    private CharSequence unitPref;
 
-    public DayAdapter(Context context, Forecast forecast) {
+    public DayAdapter(Context context, Forecast forecast, CharSequence unitPref) {
         this.context = context;
         this.forecast = forecast;
+        this.unitPref = unitPref;
     }
 
     @Override
@@ -57,7 +59,7 @@ public class DayAdapter extends BaseAdapter {
         Data data = forecast.getDaily().getData().get(position);
 
         viewHolder.iconImageView.setImageResource(data.getIconId());
-        viewHolder.temperatureLabel.setText(data.getTemperatureMax() + "");
+        viewHolder.temperatureLabel.setText(data.getTemperatureMax() + "° " + unitPref);
         if (position == 0) {
             viewHolder.dayLabel.setText("Today");
         } else {
