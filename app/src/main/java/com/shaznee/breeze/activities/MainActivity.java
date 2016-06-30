@@ -11,7 +11,7 @@ import android.view.MenuItem;
 import android.widget.Toast;
 
 import com.shaznee.breeze.R;
-import com.shaznee.breeze.adapters.pageadapters.SectionsPagerAdapter;
+import com.shaznee.breeze.adapters.pageadapters.WeatherPagerAdapter;
 import com.shaznee.breeze.fragments.WeatherFragment;
 import com.shaznee.breeze.models.location.MyLocation;
 import com.shaznee.breeze.providers.preferences.LocationPreferenceProvider;
@@ -24,7 +24,7 @@ public class MainActivity extends AppCompatActivity implements WeatherFragment.O
 
     private static final int SEARCH_REQUEST = 1001;
 
-    private SectionsPagerAdapter mSectionsPagerAdapter;
+    private WeatherPagerAdapter mWeatherPagerAdapter;
     private ViewPager mViewPager;
     private LocationPreferenceProvider locationPreferenceProvider;
 
@@ -66,12 +66,12 @@ public class MainActivity extends AppCompatActivity implements WeatherFragment.O
         super.onResume();
         locationPreferenceProvider = new LocationPreferenceProvider(getApplicationContext());
         try {
-            mSectionsPagerAdapter = new SectionsPagerAdapter(getSupportFragmentManager(), locationPreferenceProvider.findAll());
+            mWeatherPagerAdapter = new WeatherPagerAdapter(getSupportFragmentManager(), locationPreferenceProvider.findAll());
         } catch (JSONException e) {
             Log.d(TAG, "JSONException : ", e);
         }
         mViewPager = (ViewPager) findViewById(R.id.container);
-        mViewPager.setAdapter(mSectionsPagerAdapter);
+        mViewPager.setAdapter(mWeatherPagerAdapter);
     }
 
     @Override
@@ -88,8 +88,8 @@ public class MainActivity extends AppCompatActivity implements WeatherFragment.O
         startActivityForResult(intent, SEARCH_REQUEST);
     }
 
-    private void onMenuMoreClick() {
-    }
+//    private void onMenuMoreClick() {
+//    }
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
@@ -97,7 +97,7 @@ public class MainActivity extends AppCompatActivity implements WeatherFragment.O
             MyLocation location = data.getParcelableExtra(SearchAcitivty.SEARCH_RESULT);
             try {
                 locationPreferenceProvider.update(location);
-                mSectionsPagerAdapter.addLocation(location);
+                mWeatherPagerAdapter.addLocation(location);
                 Toast.makeText(this, location.getPrimaryText() + " registered", Toast.LENGTH_LONG).show();
             } catch (JSONException e) {
                 Log.d(TAG, "JSONException : ", e);

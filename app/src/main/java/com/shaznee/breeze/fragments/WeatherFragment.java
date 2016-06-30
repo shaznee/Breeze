@@ -18,15 +18,14 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.shaznee.breeze.R;
-import com.shaznee.breeze.activities.DailyForecastActvity;
-import com.shaznee.breeze.activities.HourlyForecastActivity;
+import com.shaznee.breeze.activities.DetailsActivity;
+import com.shaznee.breeze.models.location.MyLocation;
+import com.shaznee.breeze.models.weather.Forecast;
 import com.shaznee.breeze.providers.location.LocationChangeCallBack;
 import com.shaznee.breeze.providers.location.LocationProvider;
-import com.shaznee.breeze.models.weather.Forecast;
-import com.shaznee.breeze.models.location.MyLocation;
 import com.shaznee.breeze.providers.preferences.UnitsPreference;
-import com.shaznee.breeze.weatherservice.ForecastClient;
 import com.shaznee.breeze.weatherservice.ForecastCallBack;
+import com.shaznee.breeze.weatherservice.ForecastClient;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -215,18 +214,9 @@ public class WeatherFragment extends Fragment implements ForecastCallBack, Locat
         handleNewLocation(cityName,latitude,longitude);
     }
 
-    @OnClick(R.id.dailyButton)
+    @OnClick(R.id.detailsButton)
     protected void startDailyActivity(View view) {
-        Intent intent = new Intent(getActivity(), DailyForecastActvity.class);
-        intent.putExtra(FORECAST, forecast);
-        intent.putExtra(CITY_NAME, cityName);
-        intent.putExtra(UNIT_PREF, unitLabel.getText());
-        startActivity(intent);
-    }
-
-    @OnClick(R.id.hourlyButton)
-    protected void startHourlyActivity(View view) {
-        Intent intent = new Intent(getActivity(), HourlyForecastActivity.class);
+        Intent intent = new Intent(getActivity(), DetailsActivity.class);
         intent.putExtra(FORECAST, forecast);
         intent.putExtra(CITY_NAME, cityName);
         intent.putExtra(UNIT_PREF, unitLabel.getText());

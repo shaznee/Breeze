@@ -160,33 +160,25 @@
         android:layout_centerHorizontal="true"
         android:src="@drawable/refresh" />
 
-    <LinearLayout
-        android:orientation="horizontal"
+    <!--<LinearLayout-->
+    <!--android:orientation="horizontal"-->
+    <!--android:layout_width="match_parent"-->
+    <!--android:layout_height="wrap_content"-->
+    <!--android:layout_alignParentBottom="true"-->
+    <!--android:layout_alignParentLeft="true"-->
+    <!--android:layout_alignParentStart="true">-->
+
+    <Button
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true">
+        android:text="DETAILS"
+        android:id="@+id/detailsButton"
+        android:layout_weight="1"
+        android:background="#40ffffff"
+        android:textColor="#ffffff" />
 
-        <Button
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="HOURLY"
-            android:id="@+id/hourlyButton"
-            android:layout_weight="1"
-            android:background="#40ffffff"
-            android:textColor="#ffffff" />
-
-        <Button
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="DAILY"
-            android:id="@+id/dailyButton"
-            android:layout_weight="1"
-            android:background="#40ffffff"
-            android:textColor="#ffffff"
-            android:layout_marginLeft="3dp"/>
-    </LinearLayout>
+    <!--</LinearLayout>-->
 
 
 

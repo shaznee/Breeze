@@ -3,6 +3,7 @@ package com.shaznee.breeze.adapters.pageadapters;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
+import android.support.v4.app.FragmentStatePagerAdapter;
 
 import com.shaznee.breeze.fragments.WeatherFragment;
 import com.shaznee.breeze.models.location.MyLocation;
@@ -12,11 +13,11 @@ import java.util.List;
 /**
  * Created by Shaznee on 22-May-16.
  */
-public class SectionsPagerAdapter extends FragmentPagerAdapter {
+public class WeatherPagerAdapter extends FragmentStatePagerAdapter {
 
     List<MyLocation> locations;
 
-    public SectionsPagerAdapter(FragmentManager fm, List<MyLocation> locations) {
+    public WeatherPagerAdapter(FragmentManager fm, List<MyLocation> locations) {
         super(fm);
         this.locations = locations;
     }
@@ -24,12 +25,14 @@ public class SectionsPagerAdapter extends FragmentPagerAdapter {
     @Override
     public Fragment getItem(int position) {
         // getItem is called to instantiate the fragment for the given page.
-        // Return a PlaceholderFragment (defined as a static inner class below).
-        if (position == 0) {
-            return WeatherFragment.newInstance(null);
-        } else {
-            return WeatherFragment.newInstance(locations.get(position - 1));
+        // Return a HourlyFragment (defined as a static inner class below).
+        switch (position) {
+            case 0:
+                return WeatherFragment.newInstance(null);
+            default:
+                return WeatherFragment.newInstance(locations.get(position - 1));
         }
+
     }
 
     @Override
@@ -44,9 +47,9 @@ public class SectionsPagerAdapter extends FragmentPagerAdapter {
     public CharSequence getPageTitle(int position) {
         switch (position) {
             case 0:
-                return "Current Location";
+                return "CURRENT LOCATION";
             default:
-                return locations.get(position).getPrimaryText();
+                return locations.get(position).getPrimaryText().toUpperCase();
         }
 
     }
