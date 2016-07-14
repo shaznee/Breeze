@@ -78,9 +78,6 @@ public class LocationPreferenceActivity extends AppCompatActivity {
             case R.id.mnu_add:
                 onMenuAddClick();
                 break;
-//            case R.id.mnu_more:
-//                onMenuMoreClick();
-//                break;
         }
         return super.onOptionsItemSelected(item);
     }
@@ -115,9 +112,6 @@ public class LocationPreferenceActivity extends AppCompatActivity {
     private void onMenuAddClick() {
         Intent intent = new Intent(this, SearchAcitivty.class);
         startActivityForResult(intent, SEARCH_REQUEST);
-    }
-
-    private void onMenuMoreClick() {
     }
 
     @Override

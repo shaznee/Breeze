@@ -1,9 +1,9 @@
-package com.shaznee.breeze.weatherservice;
+package com.shaznee.breeze.weatherapi;
 
 import android.util.Log;
 
 import com.shaznee.breeze.models.weather.Forecast;
-import com.shaznee.breeze.weatherservice.api.WeatherAPI;
+import com.shaznee.breeze.weatherapi.api.WeatherAPI;
 
 import retrofit2.Call;
 import retrofit2.Callback;

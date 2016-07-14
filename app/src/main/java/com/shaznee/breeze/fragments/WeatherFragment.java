@@ -24,8 +24,8 @@ import com.shaznee.breeze.models.weather.Forecast;
 import com.shaznee.breeze.providers.location.LocationChangeCallBack;
 import com.shaznee.breeze.providers.location.LocationProvider;
 import com.shaznee.breeze.providers.preferences.UnitsPreference;
-import com.shaznee.breeze.weatherservice.ForecastCallBack;
-import com.shaznee.breeze.weatherservice.ForecastClient;
+import com.shaznee.breeze.weatherapi.ForecastCallBack;
+import com.shaznee.breeze.weatherapi.ForecastClient;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;

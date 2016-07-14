@@ -1,4 +1,4 @@
-package com.shaznee.breeze.weatherservice;
+package com.shaznee.breeze.weatherapi;
 
 import com.shaznee.breeze.models.weather.Forecast;
 
