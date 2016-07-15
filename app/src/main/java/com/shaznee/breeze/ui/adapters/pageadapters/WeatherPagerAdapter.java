@@ -1,11 +1,10 @@
-package com.shaznee.breeze.adapters.pageadapters;
+package com.shaznee.breeze.ui.adapters.pageadapters;
 
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.app.FragmentStatePagerAdapter;
 
-import com.shaznee.breeze.fragments.WeatherFragment;
+import com.shaznee.breeze.ui.fragments.WeatherFragment;
 import com.shaznee.breeze.models.location.MyLocation;
 
 import java.util.List;

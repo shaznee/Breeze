@@ -1,4 +1,4 @@
-package com.shaznee.breeze.activities;
+package com.shaznee.breeze.ui.activities;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -16,7 +16,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.shaznee.breeze.R;
-import com.shaznee.breeze.adapters.arrayadapters.PreferenceAdapter;
+import com.shaznee.breeze.ui.adapters.arrayadapters.PreferenceAdapter;
 import com.shaznee.breeze.models.location.MyLocation;
 import com.shaznee.breeze.providers.preferences.LocationPreferenceProvider;
 

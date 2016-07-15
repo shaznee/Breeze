@@ -1,4 +1,4 @@
-package com.shaznee.breeze.fragments;
+package com.shaznee.breeze.ui.fragments;
 
 import android.app.AlertDialog;
 import android.content.Context;
@@ -18,14 +18,14 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.shaznee.breeze.R;
-import com.shaznee.breeze.activities.DetailsActivity;
+import com.shaznee.breeze.ui.activities.DetailsActivity;
 import com.shaznee.breeze.models.location.MyLocation;
-import com.shaznee.breeze.models.weather.Forecast;
+import com.shaznee.breeze.services.weather.Forecast;
 import com.shaznee.breeze.providers.location.LocationChangeCallBack;
 import com.shaznee.breeze.providers.location.LocationProvider;
 import com.shaznee.breeze.providers.preferences.UnitsPreference;
-import com.shaznee.breeze.weatherapi.ForecastCallBack;
-import com.shaznee.breeze.weatherapi.ForecastClient;
+import com.shaznee.breeze.services.weatherapi.ForecastCallBack;
+import com.shaznee.breeze.services.weatherapi.ForecastClient;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;

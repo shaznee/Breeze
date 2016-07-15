@@ -1,18 +1,17 @@
-package com.shaznee.breeze.fragments;
+package com.shaznee.breeze.ui.fragments;
 
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ListView;
 import android.widget.TextView;
 
 import com.shaznee.breeze.R;
-import com.shaznee.breeze.adapters.recycleradapters.HourAdapter;
-import com.shaznee.breeze.models.weather.Forecast;
+import com.shaznee.breeze.ui.adapters.arrayadapters.DayAdapter;
+import com.shaznee.breeze.services.weather.Forecast;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -20,29 +19,31 @@ import butterknife.ButterKnife;
 /**
  * Created by SHAZNEE on 29-Jun-16.
  */
-public class HourlyFragment extends Fragment {
+public class DailyFragment extends Fragment {
 
-    @BindView(R.id.recyclerView) RecyclerView recyclerView;
+    @BindView(R.id.weeklyForecastList)
+    ListView weeklyForecastList;
+    @BindView(R.id.emptyTextView) TextView emptyTextView;
     @BindView(R.id.locationLabel) TextView locationLabel;
 
-    public HourlyFragment() {}
+    public DailyFragment() {}
 
     /**
      * Returns a new instance of this fragment for the given section
      * number.
      */
-    public static HourlyFragment newInstance(/*int sectionNumber*/) {
-        HourlyFragment fragment = new HourlyFragment();
-        Bundle args = new Bundle();
+    public static DailyFragment newInstance(/*int sectionNumber*/) {
+        DailyFragment fragment = new DailyFragment();
+//        Bundle args = new Bundle();
 //        args.putInt(ARG_SECTION_NUMBER, sectionNumber);
-        fragment.setArguments(args);
+//        fragment.setArguments(args);
         return fragment;
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View rootView = inflater.inflate(R.layout.fragment_hourly_forecast, container, false);
+        View rootView = inflater.inflate(R.layout.fragment_daily_forecast, container, false);
         ButterKnife.bind(this, rootView);
 //        textView.setText(getString(R.string.section_format, getArguments().getInt(ARG_SECTION_NUMBER)));
 
@@ -52,14 +53,9 @@ public class HourlyFragment extends Fragment {
         locationLabel.setText(cityName);
         CharSequence unitPref = intent.getCharSequenceExtra(WeatherFragment.UNIT_PREF);
 
-        HourAdapter hourAdapter = new HourAdapter(forecast, unitPref);
-        RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getActivity());
-
-        recyclerView.setAdapter(hourAdapter);
-        recyclerView.setLayoutManager(layoutManager);
-
-        recyclerView.setHasFixedSize(true);
-
+        DayAdapter adapter = new DayAdapter(getActivity(), forecast, unitPref);
+        weeklyForecastList.setEmptyView(emptyTextView);
+        weeklyForecastList.setAdapter(adapter);
         return rootView;
     }
 }

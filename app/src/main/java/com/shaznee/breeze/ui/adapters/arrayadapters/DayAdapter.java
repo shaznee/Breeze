@@ -1,4 +1,4 @@
-package com.shaznee.breeze.adapters.arrayadapters;
+package com.shaznee.breeze.ui.adapters.arrayadapters;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -9,8 +9,8 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.shaznee.breeze.R;
-import com.shaznee.breeze.models.weather.Data;
-import com.shaznee.breeze.models.weather.Forecast;
+import com.shaznee.breeze.services.weather.Data;
+import com.shaznee.breeze.services.weather.Forecast;
 
 /**
  * Created by Shaznee on 16-May-16.

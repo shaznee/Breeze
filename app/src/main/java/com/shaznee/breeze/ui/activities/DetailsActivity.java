@@ -1,4 +1,4 @@
-package com.shaznee.breeze.activities;
+package com.shaznee.breeze.ui.activities;
 
 import android.os.Bundle;
 import android.support.design.widget.TabLayout;
@@ -7,7 +7,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 
 import com.shaznee.breeze.R;
-import com.shaznee.breeze.adapters.pageadapters.DetailsPagerAdapter;
+import com.shaznee.breeze.ui.adapters.pageadapters.DetailsPagerAdapter;
 
 public class DetailsActivity extends AppCompatActivity {
 

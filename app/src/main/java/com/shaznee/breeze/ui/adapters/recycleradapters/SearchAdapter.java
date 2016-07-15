@@ -1,4 +1,4 @@
-package com.shaznee.breeze.adapters.recycleradapters;
+package com.shaznee.breeze.ui.adapters.recycleradapters;
 
 import android.graphics.Typeface;
 import android.support.v7.widget.RecyclerView;

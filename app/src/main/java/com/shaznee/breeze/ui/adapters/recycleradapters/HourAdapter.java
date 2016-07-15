@@ -1,4 +1,4 @@
-package com.shaznee.breeze.adapters.recycleradapters;
+package com.shaznee.breeze.ui.adapters.recycleradapters;
 
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -8,8 +8,8 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.shaznee.breeze.R;
-import com.shaznee.breeze.models.weather.Data;
-import com.shaznee.breeze.models.weather.Forecast;
+import com.shaznee.breeze.services.weather.Data;
+import com.shaznee.breeze.services.weather.Forecast;
 
 /**
  * Created by Shaznee on 18-May-16.

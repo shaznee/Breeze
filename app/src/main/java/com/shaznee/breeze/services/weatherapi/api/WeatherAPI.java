@@ -1,6 +1,6 @@
-package com.shaznee.breeze.weatherapi.api;
+package com.shaznee.breeze.services.weatherapi.api;
 
-import com.shaznee.breeze.models.weather.Forecast;
+import com.shaznee.breeze.services.weather.Forecast;
 
 import retrofit2.Call;
 import retrofit2.http.GET;

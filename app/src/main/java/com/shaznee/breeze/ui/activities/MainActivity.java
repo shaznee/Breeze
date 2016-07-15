@@ -1,4 +1,4 @@
-package com.shaznee.breeze.activities;
+package com.shaznee.breeze.ui.activities;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -11,8 +11,8 @@ import android.view.MenuItem;
 import android.widget.Toast;
 
 import com.shaznee.breeze.R;
-import com.shaznee.breeze.adapters.pageadapters.WeatherPagerAdapter;
-import com.shaznee.breeze.fragments.WeatherFragment;
+import com.shaznee.breeze.ui.adapters.pageadapters.WeatherPagerAdapter;
+import com.shaznee.breeze.ui.fragments.WeatherFragment;
 import com.shaznee.breeze.models.location.MyLocation;
 import com.shaznee.breeze.providers.preferences.LocationPreferenceProvider;
 

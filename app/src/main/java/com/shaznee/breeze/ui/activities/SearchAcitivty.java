@@ -1,4 +1,4 @@
-package com.shaznee.breeze.activities;
+package com.shaznee.breeze.ui.activities;
 
 import android.app.SearchManager;
 import android.content.Intent;
@@ -15,7 +15,7 @@ import android.view.View;
 
 import com.google.android.gms.location.places.Place;
 import com.shaznee.breeze.R;
-import com.shaznee.breeze.adapters.recycleradapters.SearchAdapter;
+import com.shaznee.breeze.ui.adapters.recycleradapters.SearchAdapter;
 import com.shaznee.breeze.listeners.SearchClickListener;
 import com.shaznee.breeze.models.location.MyLocation;
 import com.shaznee.breeze.models.location.PredictedPlace;
