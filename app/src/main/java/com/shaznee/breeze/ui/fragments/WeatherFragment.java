@@ -18,20 +18,18 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.shaznee.breeze.R;
-import com.shaznee.breeze.ui.activities.DetailsActivity;
 import com.shaznee.breeze.models.location.MyLocation;
-import com.shaznee.breeze.services.weather.Forecast;
-import com.shaznee.breeze.providers.location.LocationChangeCallBack;
 import com.shaznee.breeze.providers.location.LocationProvider;
 import com.shaznee.breeze.providers.preferences.UnitsPreference;
-import com.shaznee.breeze.services.weatherapi.ForecastCallBack;
+import com.shaznee.breeze.services.weather.Forecast;
 import com.shaznee.breeze.services.weatherapi.ForecastClient;
+import com.shaznee.breeze.ui.activities.DetailsActivity;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
-public class WeatherFragment extends Fragment implements ForecastCallBack, LocationChangeCallBack {
+public class WeatherFragment extends Fragment implements ForecastClient.CallBack, LocationProvider.NewLocationCallBack {
 
     private static final String TAG = WeatherFragment.class.getSimpleName();
 

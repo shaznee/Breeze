@@ -19,6 +19,7 @@ import com.google.android.gms.common.api.ResultCallback;
 import com.google.android.gms.location.LocationListener;
 import com.google.android.gms.location.LocationRequest;
 import com.google.android.gms.location.LocationServices;
+import com.google.android.gms.location.places.Place;
 import com.google.android.gms.location.places.PlaceBuffer;
 import com.google.android.gms.location.places.Places;
 
@@ -32,16 +33,29 @@ import java.util.Locale;
 public class LocationProvider implements GoogleApiClient.ConnectionCallbacks,
         GoogleApiClient.OnConnectionFailedListener, LocationListener {
 
+    public interface NewLocationCallBack {
+        void handleNewLocation(String cityName, double latitude, double longitude);
+    }
+
+    public interface PlaceCallback {
+        void onPlaceFound(Place place);
+    }
+
     private static final String TAG = LocationProvider.class.getSimpleName();
 
     private Context context;
 
-    private LocationChangeCallBack locationChangeCallBack;
+    private NewLocationCallBack newLocationCallBack;
     private Geocoder geocoder;
     private GoogleApiClient googleApiClient;
     private LocationRequest locationRequest;
 
-    public LocationProvider(Context context, LocationChangeCallBack callback) {
+    public LocationProvider(Context context, NewLocationCallBack newLocationCallBack) {
+        this(context);
+        this.newLocationCallBack = newLocationCallBack;
+    }
+
+    public LocationProvider(Context context) {
         this.context = context;
         this.googleApiClient = new GoogleApiClient.Builder(context)
                 .addConnectionCallbacks(this)
@@ -52,13 +66,12 @@ public class LocationProvider implements GoogleApiClient.ConnectionCallbacks,
 
         geocoder = new Geocoder(context, Locale.getDefault());
 
-        this.locationChangeCallBack = callback;
-
         // Create the LocationRequest object
         this.locationRequest = LocationRequest.create()
                 .setPriority(LocationRequest.PRIORITY_HIGH_ACCURACY)
                 .setInterval(10 * 1000)        // 10 seconds, in milliseconds
                 .setFastestInterval(1 * 1000); // 1 second, in milliseconds
+
     }
 
     public GoogleApiClient getGoogleApiClient() {
@@ -90,8 +103,8 @@ public class LocationProvider implements GoogleApiClient.ConnectionCallbacks,
             } else {
                 Log.i(TAG, "On connected handling new location");
                 try {
-                    if (locationChangeCallBack != null) {
-                        locationChangeCallBack.handleNewLocation(getCityName(location.getLatitude(),location.getLongitude()),location.getLatitude(), location.getLongitude());
+                    if (newLocationCallBack != null) {
+                        newLocationCallBack.handleNewLocation(getCityName(location.getLatitude(),location.getLongitude()),location.getLatitude(), location.getLongitude());
                     }
                 } catch (IOException e) {
                     Log.d(TAG, "IOException : ", e);
@@ -117,8 +130,8 @@ public class LocationProvider implements GoogleApiClient.ConnectionCallbacks,
     @Override
     public void onLocationChanged(Location location) {
         try {
-            if (locationChangeCallBack != null) {
-                locationChangeCallBack.handleNewLocation(getCityName(location.getLatitude(), location.getLongitude()), location.getLatitude(), location.getLongitude());
+            if (newLocationCallBack != null) {
+                newLocationCallBack.handleNewLocation(getCityName(location.getLatitude(), location.getLongitude()), location.getLatitude(), location.getLongitude());
             }
         } catch (IOException e) {
             Log.d(TAG, "IOException : ", e);

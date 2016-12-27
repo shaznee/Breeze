@@ -11,12 +11,12 @@ import android.view.View;
  */
 public class SearchClickListener implements RecyclerView.OnItemTouchListener {
 
-    private Context context;
+//    private Context context;
     private OnItemClickListener onItemClickListener;
     private GestureDetector gestureDetector;
 
     public SearchClickListener(Context context, OnItemClickListener onItemClickListener) {
-        this.context = context;
+//        this.context = context;
         this.onItemClickListener = onItemClickListener;
         gestureDetector = new GestureDetector(context, new GestureDetector.SimpleOnGestureListener(){
             @Override

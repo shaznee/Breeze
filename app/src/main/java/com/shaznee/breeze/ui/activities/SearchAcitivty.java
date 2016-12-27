@@ -20,7 +20,7 @@ import com.shaznee.breeze.listeners.SearchClickListener;
 import com.shaznee.breeze.models.location.MyLocation;
 import com.shaznee.breeze.models.location.PredictedPlace;
 import com.shaznee.breeze.providers.location.LocationProvider;
-import com.shaznee.breeze.providers.location.PlaceCallback;
+import com.shaznee.breeze.providers.location.LocationProvider.PlaceCallback;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -48,7 +48,7 @@ public class SearchAcitivty extends AppCompatActivity implements
         actionBar.setDisplayHomeAsUpEnabled(true);
         actionBar.setDisplayShowTitleEnabled(false);
 
-        locationProvider = new LocationProvider(this, null);
+        locationProvider = new LocationProvider(this);
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(this);
         searchAdapter = new SearchAdapter(locationProvider.getGoogleApiClient());
         recyclerView.setAdapter(searchAdapter);
